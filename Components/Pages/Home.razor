@@ -1,68 +1,65 @@
 ﻿@page "/"
-@attribute [StreamRendering]
+@rendermode InteractiveServer
 
 
-@if (forecasts == null)
+@if (Categories == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
+    <CascadingValue Value=@this IsFixed=true >
+        <Popup @ref="popupRef" />
+    </CascadingValue>
     <table class="table">
         <thead>
             <tr>
                 <th class="invisible"></th>
-                <Category></Category>
-                <Category></Category>
-                <Category></Category>
+                
+                <Category CategoryTitle="@Categories[0]" />
+                <Category CategoryTitle="@Categories[1]" />
+                <Category CategoryTitle="@Categories[2]" />
             </tr>
         </thead>
         <tbody>
             <tr>
-                <Category></Category>
-                <Answer />
-                <Answer />
-                <Answer />
+                <Category CategoryTitle="@Categories[3]"/>
+                <td @onclick="() => setValue(0)"> <Answer stateParam ="@answers[0]" /></td>
+                <td @onclick="() => setValue(1)"> <Answer stateParam="@answers[1]" /></td>
+                <td @onclick="() => setValue(2)"> <Answer stateParam ="@answers[2]" /></td>
+
             </tr>
             <tr>
-                <Category></Category>
-                <Answer />
-                <Answer />
-                <Answer />
+                <Category CategoryTitle="@Categories[4]" />
+                <td @onclick="() => setValue(3)"> <Answer stateParam="@answers[3]" /></td>
+                <td @onclick="() => setValue(4)"> <Answer stateParam="@answers[4]" /></td>
+                <td @onclick="() => setValue(5)"> <Answer stateParam="@answers[5]" /></td>
             </tr>
             <tr>
-                <Category></Category>
-                <Answer />
-                <Answer />
-                <Answer />
+                <Category CategoryTitle="@Categories[5]" />
+                <td @onclick="() => setValue(6)"> <Answer stateParam="@answers[6]" /></td>
+                <td @onclick="() => setValue(7)"> <Answer stateParam="@answers[7]" /></td>
+                <td @onclick="() => setValue(8)"> <Answer stateParam="@answers[8]" /></td>
             </tr>
         </tbody>
     </table>
+
 }
 
 @code {
-    private WeatherForecast[]? forecasts;
+    private Popup popupRef;
+    private string[] Categories =  new[] {"is Racist", "avg tmp over 75F", "pee pee", "poo poo", "5" ,"6"};
+    private string[] answers = new string[] { "","","", "","","", "","","" };
 
-    protected override async Task OnInitializedAsync()
+    public Home()
     {
-        // Simulate asynchronous loading to demonstrate streaming rendering
-        await Task.Delay(500);
-
-        var starAnswerate = DateOnly.FromDateTime(DateTime.Now);
-        var summaries = new[] { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
-        forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
-        {
-            Date = starAnswerate.AddDays(index),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = summaries[Random.Shared.Next(summaries.Length)]
-        }).ToArray();
+        this.popupRef = new Popup();
     }
 
-    private class WeatherForecast
+    private void setValue(int index)
     {
-        public DateOnly Date { get; set; }
-        public int TemperatureC { get; set; }
-        public string? Summary { get; set; }
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+        this.popupRef.Show("index 1");
     }
+
+    
 }

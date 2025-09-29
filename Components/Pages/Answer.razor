@@ -1,37 +1,29 @@
-﻿@attribute [StreamRendering]
+﻿@rendermode InteractiveServer
 
 @if (@state != null)
 {
-<td>
-    <p>@rarity - @score%</p>
-    <img />
-    <p>@state</p>
-
-</td>
-} else
-{
-    <td @onclick="@(() => openInput())" style="borders:all">
-    </td>
-}
+<p>@rarity - @score%</p>
+<img />
+<p>@state</p>
+} 
 
 
 @code {
-    public string? rarity = null;
-    public double? score = null;
-    public string? state = null;
+    private string? rarity = null;
+    private double? score = null;
+    private string state = "";
 
-    public void openInput()
+    [Parameter]
+    public string stateParam { get; set; } = "";
+
+    protected override void OnParametersSet()
     {
-        Console.WriteLine("My debug output.");
-        state = "Alabama";
-        fetchStats();
+        if(state != stateParam)
+        {
+            state = stateParam;
+            score = 10.1;
+            rarity = "rare";
+        }
     }
 
-    private void fetchStats()
-    {
-        rarity = "common";
-        score = 37.8;
-    }
-
-    void Edit() => Console.WriteLine($"Edit item:");
 }
