@@ -9,7 +9,7 @@
 else
 {
     <CascadingValue Value=@this IsFixed=true >
-        <Popup @ref="popupRef" />
+        <Popup @ref="popupRef" IsVisibleChanged="onSubmit" />
     </CascadingValue>
     <table class="table">
         <thead>
@@ -58,8 +58,12 @@ else
 
     private void setValue(int index)
     {
-        this.popupRef.Show("index 1");
+        this.popupRef.Show(index, index.ToString());
     }
 
-    
+    private void onSubmit()
+    {
+        int.TryParse(this.popupRef.HeaderText, out int index);
+        answers[index] = this.popupRef.input;
+    }
 }

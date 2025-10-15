@@ -10,8 +10,8 @@
         </div>
 
         <div class="toast-body">
-            <input type="search" name="name" value="@input" />
-            <input type="submit" name="submit" />
+            <input type="search" name="name" value="@input" @oninput="@(a => {input = (string) a.Value;})" />
+            <input type="submit" name="submit" onclick="@Submit" />
         </div>
     </div>
 </div>
@@ -21,16 +21,18 @@
     public bool IsVisible { get; set; }
 
     [Parameter]
-    public EventCallback<bool> IsVisibleChanged { get; set; }
+    public EventCallback<(int, string)> IsVisibleChanged { get; set; }
 
     [Parameter]
     public string? HeaderText { get; set; }
 
     public string input { get; set; } = "";
+    public int index { get; set; } = 0;
 
 
-    public void Show(string headerText)
+    public void Show(int index, string headerText)
     {
+        this.index = index;
         HeaderText = headerText;
         IsVisible = true;
         StateHasChanged();
@@ -39,6 +41,13 @@
     private void Close()
     {
         HeaderText = string.Empty;
+        IsVisible = false;
+        StateHasChanged();
+    }
+
+    private void Submit()
+    {
+        IsVisibleChanged.InvokeAsync((index, input));
         IsVisible = false;
         StateHasChanged();
     }
