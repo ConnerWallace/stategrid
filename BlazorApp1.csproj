@@ -8,6 +8,65 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\flags\Alabama.svg" />
+    <None Include="wwwroot\flags\Alaska.svg" />
+    <None Include="wwwroot\flags\American Samoa.svg" />
+    <None Include="wwwroot\flags\Arizona.svg" />
+    <None Include="wwwroot\flags\Arkansas.svg" />
+    <None Include="wwwroot\flags\California.svg" />
+    <None Include="wwwroot\flags\Colorado.svg" />
+    <None Include="wwwroot\flags\Connecticut.svg" />
+    <None Include="wwwroot\flags\Delaware.svg" />
+    <None Include="wwwroot\flags\Florida.svg" />
+    <None Include="wwwroot\flags\Georgia.svg" />
+    <None Include="wwwroot\flags\Guam.svg" />
+    <None Include="wwwroot\flags\Hawaii.svg" />
+    <None Include="wwwroot\flags\Idaho.svg" />
+    <None Include="wwwroot\flags\Illinois.svg" />
+    <None Include="wwwroot\flags\Indiana.svg" />
+    <None Include="wwwroot\flags\Iowa.svg" />
+    <None Include="wwwroot\flags\Kansas.svg" />
+    <None Include="wwwroot\flags\Kentucky.svg" />
+    <None Include="wwwroot\flags\Louisiana.svg" />
+    <None Include="wwwroot\flags\Maine.svg" />
+    <None Include="wwwroot\flags\Maryland.svg" />
+    <None Include="wwwroot\flags\Massachusetts.svg" />
+    <None Include="wwwroot\flags\Michigan.svg" />
+    <None Include="wwwroot\flags\Minnesota.svg" />
+    <None Include="wwwroot\flags\Mississippi.svg" />
+    <None Include="wwwroot\flags\Missouri.svg" />
+    <None Include="wwwroot\flags\Montana.svg" />
+    <None Include="wwwroot\flags\Nebraska.svg" />
+    <None Include="wwwroot\flags\Nevada.svg" />
+    <None Include="wwwroot\flags\New Hampshire.svg" />
+    <None Include="wwwroot\flags\New Jersey.svg" />
+    <None Include="wwwroot\flags\New Mexico.svg" />
+    <None Include="wwwroot\flags\New York.svg" />
+    <None Include="wwwroot\flags\North Carolina.svg" />
+    <None Include="wwwroot\flags\North Dakota.svg" />
+    <None Include="wwwroot\flags\Northern Mariana Islands.svg" />
+    <None Include="wwwroot\flags\Ohio.svg" />
+    <None Include="wwwroot\flags\Oklahoma.svg" />
+    <None Include="wwwroot\flags\Oregon.svg" />
+    <None Include="wwwroot\flags\Pennsylvania.svg" />
+    <None Include="wwwroot\flags\Puerto Rico.svg" />
+    <None Include="wwwroot\flags\Rhode Island.svg" />
+    <None Include="wwwroot\flags\South Carolina.svg" />
+    <None Include="wwwroot\flags\South Dakota.svg" />
+    <None Include="wwwroot\flags\Tennessee.svg" />
+    <None Include="wwwroot\flags\Texas.svg" />
+    <None Include="wwwroot\flags\U.S. Virgin Islands.svg" />
+    <None Include="wwwroot\flags\Utah.svg" />
+    <None Include="wwwroot\flags\Vermont.svg" />
+    <None Include="wwwroot\flags\Virginia.svg" />
+    <None Include="wwwroot\flags\Washington, D.C..svg" />
+    <None Include="wwwroot\flags\Washington.svg" />
+    <None Include="wwwroot\flags\West Virginia.svg" />
+    <None Include="wwwroot\flags\Wisconsin.svg" />
+    <None Include="wwwroot\flags\Wyoming.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.3" />
   </ItemGroup>
 

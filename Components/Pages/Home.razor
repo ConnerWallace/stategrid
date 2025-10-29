@@ -8,14 +8,15 @@
 }
 else
 {
-    <CascadingValue Value=@this IsFixed=true >
-        <Popup @ref="popupRef" IsVisibleChanged="onSubmit" />
+    <CascadingValue Value=@this IsFixed=true
+    >
+        <Popup @ref="popupRef" IsVisibleChanged="@(args=> onSubmit(args))" />
     </CascadingValue>
     <table class="table">
         <thead>
             <tr>
                 <th class="invisible"></th>
-                
+
                 <Category CategoryTitle="@Categories[0]" />
                 <Category CategoryTitle="@Categories[1]" />
                 <Category CategoryTitle="@Categories[2]" />
@@ -43,13 +44,13 @@ else
             </tr>
         </tbody>
     </table>
-
 }
 
 @code {
     private Popup popupRef;
-    private string[] Categories =  new[] {"is Racist", "avg tmp over 75F", "pee pee", "poo poo", "5" ,"6"};
-    private string[] answers = new string[] { "","","", "","","", "","","" };
+    private string[] Categories = new[] { "is Racist", "avg tmp over 75F", "pee pee", "poo poo", "5", "6" };
+    private string[] answers = new string[] { "", "", "", "", "", "", "", "", "" };
+    private List<string[]> categoriesCorrectAnswers = new List<string []>{new string[]{"Alabama"} };
 
     public Home()
     {
@@ -61,9 +62,11 @@ else
         this.popupRef.Show(index, index.ToString());
     }
 
-    private void onSubmit()
+    private void onSubmit((int index, string input) a)
     {
-        int.TryParse(this.popupRef.HeaderText, out int index);
-        answers[index] = this.popupRef.input;
+        if (categoriesCorrectAnswers[0].Contains(a.input)){
+            answers[a.index] = a.input;
+        }
+
     }
 }
