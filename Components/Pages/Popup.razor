@@ -10,14 +10,19 @@
         </div>
 
         <div class="toast-body">
-            <input type="search" name="name" value="@input" @oninput="@(a => {input = (string) a.Value;})" />
+            <input type="search" name="name" @bind="input" @oninput="@(a => {onInput( (string) a.Value);})" />
             <input type="submit" name="submit" onclick="@Submit" />
+        </div>
+        <div>
+            @foreach(var state in filteredStates)
+            {
+                <p onclick="(() => setInput(state))">@state</p>
+            }
         </div>
     </div>
 </div>
 
 @code {
-    [Parameter]
     public bool IsVisible { get; set; }
 
     [Parameter]
@@ -28,6 +33,8 @@
 
     public string input { get; set; } = "";
     public int index { get; set; } = 0;
+    private List<string> states = new List<string>{"michigan", "north carolina"};
+    public List<string> filteredStates = new List<string>();
 
 
     public void Show(int index, string headerText)
@@ -37,6 +44,17 @@
         IsVisible = true;
         input = "";
         StateHasChanged();
+    }
+
+    private void setInput(string state)
+    {
+        input = state;
+    }
+
+    private void onInput(string newInput)
+    {
+        input = newInput;
+        filteredStates = states.FindAll(a => a.Contains(input));
     }
 
     private void Close()
