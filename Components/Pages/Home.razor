@@ -1,4 +1,6 @@
 ﻿@page "/"
+@using BlazorApp1.Components.DB
+@using Microsoft.Data.Sqlite
 @rendermode InteractiveServer
 
 
@@ -48,13 +50,24 @@ else
 
 @code {
     private Popup popupRef;
-    private string[] Categories = new[] { "is Racist", "avg tmp over 75F", "pee pee", "poo poo", "5", "6" };
+    private string[] Categories = new[] { "starts with m", "smaller than 1000 sq miles", "starts with G", "", "5", "6" };
     private string[] answers = new string[] { "", "", "", "", "", "", "", "", "" };
-    private List<string[]> categoriesCorrectAnswers = new List<string []>{new string[]{"Alabama"} };
+    private List<List<string>> categoriesCorrectAnswers = new List<List<string>>();
+
+    private TestDbContext dB = new TestDbContext();
 
     public Home()
     {
         this.popupRef = new Popup();
+        categoriesCorrectAnswers.Add(new List<string>());
+        categoriesCorrectAnswers[0].AddRange(dB.nameStartsWith("M"));
+
+        categoriesCorrectAnswers.Add(new List<string>());
+        categoriesCorrectAnswers[1].AddRange(dB.areaSmallerThan(1000));
+
+        categoriesCorrectAnswers.Add(new List<string>());
+        categoriesCorrectAnswers[2].AddRange(dB.nameStartsWith("G"));
+
     }
 
     private void setValue(int index)
@@ -63,8 +76,10 @@ else
     }
 
     private void onSubmit((int index, string input) a)
-    {
-        if (categoriesCorrectAnswers[0].Contains(a.input)){
+    {   
+
+        //TODO check both categories based on index
+        if (categoriesCorrectAnswers[0].Contains(a.input.ToLowerInvariant())){
             answers[a.index] = a.input;
         }
 
