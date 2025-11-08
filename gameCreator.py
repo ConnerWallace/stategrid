@@ -12,7 +12,7 @@ cursor = connection.cursor()
 
 #randomly select possibleCategories
 
-listOfStates = cursor.execute("SELECT name FROM STATES" .fetchall() 
+listOfStates = cursor.execute("SELECT name FROM STATES") .fetchall() 
 #needed cuz fetchall is returning a list of tuples
 states = list(map( lambda x: x[0], listOfStates))
 
