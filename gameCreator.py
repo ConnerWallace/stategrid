@@ -8,7 +8,7 @@ connection = sqlite3.connect("stateinfo.db")
 cursor = connection.cursor()
 
 #this table needs to exist first 
-#possibleCategories = cursor.execute("SELECT name, clause FROM categories").fetchall()
+#possibleCategories = cursor.execute("SELECT id, name, clause FROM categories").fetchall()
 
 #randomly select possibleCategories
 
