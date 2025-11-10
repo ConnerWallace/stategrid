@@ -51,7 +51,6 @@ cursor = connection.cursor()
 #this table needs to exist first 
 possibleCategories = cursor.execute("SELECT id, name, clause FROM categories WHERE clause is not null").fetchall()
 #possibleCategories.pop()
-print(possibleCategories)
 
 #randomly select possibleCategories
 while True:
@@ -68,6 +67,6 @@ while True:
         allAnswers.append(states)
 
     if CheckIfSolvable(allAnswers):
-        print(categories)
-    else:
-        print("failed")
+        print("foudn one")
+        cursor.execute("insert into games values(?,?,?,?,?,?, null)", [categories[0][0] , categories[1][0] , categories[2][0] , categories[3][0] , categories[4][0] , categories[5][0]])
+        connection.commit()
