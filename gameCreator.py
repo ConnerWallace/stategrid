@@ -40,11 +40,10 @@ def CheckIfSolvable(l):
                                     for i in iss:
                                         
                                         if allUnique([a,b,c,d,e,f,g,h,i]):
-                                            #print([a,b,c,d,e,f,g,h,i])
-                                            count += 1
-                                            #return True
-    if count > 0:
-        print(count)
+                                            print([a,b,c,d,e,f,g,h,i])
+                                            return True
+                                            
+    return False
 
 
 connection = sqlite3.connect("stateinfo.db")
