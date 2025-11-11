@@ -40,7 +40,9 @@ def CheckIfSolvable(l):
                                     for i in iss:
                                         
                                         if allUnique([a,b,c,d,e,f,g,h,i]):
+                                            print([a,b,c,d,e,f,g,h,i])
                                             return True
+                                            
     return False
 
 
