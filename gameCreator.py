@@ -28,7 +28,6 @@ def CheckIfSolvable(l):
     print(hs)
     print(iss)
     """
-    count = 0
     for a in ass:
         for b in bs:
             for c in cs:
@@ -51,7 +50,7 @@ connection = sqlite3.connect("stateinfo.db")
 cursor = connection.cursor()
 
 #this table needs to exist first 
-possibleCategories = cursor.execute("SELECT id, name, clause FROM categories WHERE clause is not null").fetchall()
+possibleCategories = cursor.execute("SELECT id, name, clause, modifier FROM categories WHERE clause is not null and modifier != 'x'").fetchall()
 #possibleCategories.pop()
 
 #randomly select possibleCategories
@@ -59,17 +58,19 @@ while True:
     categories = random.sample(possibleCategories, 6)
     allAnswers = []
 
+    mods = []
     for category in categories:
-        #print(category[2])
-
         listOfStates = cursor.execute(str(category[2])) .fetchall()
         states = list(map( lambda x: x[0], listOfStates))
-
-        #print(states)
+        mods.append(category(3))
         allAnswers.append(states)
 
+    mods = [item for item in mods if item is not None]
+    
+    if not allUnique(mods):
+        continue
+
     if CheckIfSolvable(allAnswers):
-        pass
-        #print("foudn one")
-        #cursor.execute("insert into games values(?,?,?,?,?,?, null)", [categories[0][0] , categories[1][0] , categories[2][0] , categories[3][0] , categories[4][0] , categories[5][0]])
-        #connection.commit()
+        print("foudn one")
+        cursor.execute("insert into games values(?,?,?,?,?,?, null)", [categories[0][0] , categories[1][0] , categories[2][0] , categories[3][0] , categories[4][0] , categories[5][0]])
+        connection.commit()
