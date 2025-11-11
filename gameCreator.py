@@ -28,7 +28,7 @@ def CheckIfSolvable(l):
     print(hs)
     print(iss)
     """
-
+    count = 0
     for a in ass:
         for b in bs:
             for c in cs:
@@ -40,8 +40,11 @@ def CheckIfSolvable(l):
                                     for i in iss:
                                         
                                         if allUnique([a,b,c,d,e,f,g,h,i]):
-                                            return True
-    return False
+                                            #print([a,b,c,d,e,f,g,h,i])
+                                            count += 1
+                                            #return True
+    if count > 0:
+        print(count)
 
 
 connection = sqlite3.connect("stateinfo.db")
@@ -67,6 +70,7 @@ while True:
         allAnswers.append(states)
 
     if CheckIfSolvable(allAnswers):
-        print("foudn one")
-        cursor.execute("insert into games values(?,?,?,?,?,?, null)", [categories[0][0] , categories[1][0] , categories[2][0] , categories[3][0] , categories[4][0] , categories[5][0]])
-        connection.commit()
+        pass
+        #print("foudn one")
+        #cursor.execute("insert into games values(?,?,?,?,?,?, null)", [categories[0][0] , categories[1][0] , categories[2][0] , categories[3][0] , categories[4][0] , categories[5][0]])
+        #connection.commit()

@@ -20,27 +20,27 @@ else
                 <tr>
                     <th style="width:25%" class="invisible"></th>
 
-                    <Category CategoryTitle="@Categories[0]" />
-                    <Category CategoryTitle="@Categories[1]" />
-                    <Category CategoryTitle="@Categories[2]" />
+                    <CategoryContainer CategoryTitle="@Categories[0].Name" />
+                    <CategoryContainer CategoryTitle="@Categories[1].Name" />
+                    <CategoryContainer CategoryTitle="@Categories[2].Name" />
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <Category CategoryTitle="@Categories[3]"/>
+                    <CategoryContainer CategoryTitle="@Categories[3].Name" />
                     <td style="width:25%;height:25%;" @onclick="() => setValue(0)"> <Answer stateParam="@answers[0]" /></td>
                     <td style="width:25%" @onclick="() => setValue(1)"> <Answer stateParam="@answers[1]" /></td>
                     <td style="width:25%" @onclick="() => setValue(2)"> <Answer stateParam="@answers[2]" /></td>
 
                 </tr>
                 <tr>
-                    <Category CategoryTitle="@Categories[4]" />
+                    <CategoryContainer CategoryTitle="@Categories[4].Name" />
                     <td style="width:25%" @onclick="() => setValue(3)"> <Answer stateParam="@answers[3]" /></td>
                     <td style="width:25%" @onclick="() => setValue(4)"> <Answer stateParam="@answers[4]" /></td>
                     <td style="width:25%" @onclick="() => setValue(5)"> <Answer stateParam="@answers[5]" /></td>
                 </tr>
                 <tr>
-                    <Category CategoryTitle="@Categories[5]" />
+                    <CategoryContainer CategoryTitle="@Categories[5].Name" />
                     <td style="width:25%" @onclick="() => setValue(6)"> <Answer stateParam="@answers[6]" /></td>
                     <td style="width:25%" @onclick="() => setValue(7)"> <Answer stateParam="@answers[7]" /></td>
                     <td style="width:25%" @onclick="() => setValue(8)"> <Answer stateParam="@answers[8]" /></td>
@@ -58,40 +58,55 @@ else
 
 @code {
     private Popup popupRef;
-    private string[] Categories = new[] { "starts with m", "smaller than 1000 sq miles", "starts with A", "capital is largest city", "avg temp > 45", "Has a coast (including the great lakes)" };
-    private List<string> answers = new List<string> { "", "", "", "", "", "", "", "", "" };
+    private Category[] Categories = new Category[6];
+    private string[] answers = new string[] { "", "", "", "", "", "", "", "", "" };
     private List<List<string>> categoriesCorrectAnswers = new List<List<string>>();
     private int score = 900;
     private int guesses = 10;
     private int gameNumber = 1;
 
-    private TestDbContext dB = new TestDbContext();
+    private StateinfoContext dB = new StateinfoContext();
+    private TestDbContext dbButBad = new TestDbContext();
 
     public Home()
     {
-        this.popupRef = new Popup();
-        categoriesCorrectAnswers.Add(new List<string>());
-        categoriesCorrectAnswers[0].AddRange(dB.nameStartsWith("M"));
+        popupRef = new Popup();
+        Game todaysGame = dB.Games.Single(b => b.Id == 1);
+        Categories[0] = dB.Categories.Single(c => c.Id == todaysGame.Cat1);
+        Categories[1] = dB.Categories.Single(c => c.Id == todaysGame.Cat2);
+        Categories[2] = dB.Categories.Single(c => c.Id == todaysGame.Cat3);
+        Categories[3] = dB.Categories.Single(c => c.Id == todaysGame.Cat4);
+        Categories[4] = dB.Categories.Single(c => c.Id == todaysGame.Cat5);
+        Categories[5] = dB.Categories.Single(c => c.Id == todaysGame.Cat6);
 
         categoriesCorrectAnswers.Add(new List<string>());
-        categoriesCorrectAnswers[1].AddRange(dB.areaSmallerThan(1000));
+        categoriesCorrectAnswers[0].AddRange(dbButBad.query(Categories[0].Clause));
 
         categoriesCorrectAnswers.Add(new List<string>());
-        categoriesCorrectAnswers[2].AddRange(dB.nameStartsWith("A"));
+        categoriesCorrectAnswers[1].AddRange(dbButBad.query(Categories[1].Clause));
 
         categoriesCorrectAnswers.Add(new List<string>());
-        categoriesCorrectAnswers[3].AddRange(dB.query("capital = bigCity"));
+        categoriesCorrectAnswers[2].AddRange(dbButBad.query(Categories[2].Clause));
 
         categoriesCorrectAnswers.Add(new List<string>());
-        categoriesCorrectAnswers[4].AddRange(dB.query("averageTemp > 45"));
+        categoriesCorrectAnswers[3].AddRange(dbButBad.query(Categories[3].Clause));
 
         categoriesCorrectAnswers.Add(new List<string>());
-        categoriesCorrectAnswers[5].AddRange(dB.query("seaCoast != 'None' OR greatLakes = 1"));
+        categoriesCorrectAnswers[4].AddRange(dbButBad.query(Categories[4].Clause));
+
+        categoriesCorrectAnswers.Add(new List<string>());
+        categoriesCorrectAnswers[5].AddRange(dbButBad.query(Categories[5].Clause));
+
+
     }
+     
+    //popupRef.SetStates(dB.States.ToList().Select(s => s.Name!).ToList());
 
-    private void setValue(int index)
+
+    private async Task setValue(int index)
     {
-        this.popupRef.Show(index, index.ToString());
+        popupRef.Show(index, index.ToString());
+        
     }
 
     private void onSubmit((int index, string input) a)
