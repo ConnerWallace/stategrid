@@ -60,9 +60,10 @@ while True:
 
     mods = []
     for category in categories:
-        listOfStates = cursor.execute(str(category[2])) .fetchall()
+        #print(category)
+        listOfStates = cursor.execute(str(category[2])).fetchall()
         states = list(map( lambda x: x[0], listOfStates))
-        mods.append(category(3))
+        mods.append(category[3])
         allAnswers.append(states)
 
     mods = [item for item in mods if item is not None]
