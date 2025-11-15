@@ -3,21 +3,24 @@
     var showClass = IsVisible ? "d-block" : "d-none";
 }
 
-<div class="toast-container p-3 @showClass" data-bs-autohide="true" data-bs-delay="5000">
+<div class="toast-container  p-3 @showClass" data-bs-autohide="true" data-bs-delay="5000">
     <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
-            <strong class="me-auto">@HeaderText</strong>
+            <strong class="me-auto">@cat1</strong>
+            <strong class="me-auto">@cat2</strong>
             <button type="button" class="btn-close" aria-label="Close" @onclick="Close"></button>
         </div>
 
         <div class="toast-body">
-            <input type="search" name="name" @bind="input" @oninput="@(a => {onInput( (string) a.Value);})" />
+            <input autocomplete="off" type="search" name="name" @bind="input" @oninput="@(a => {onInput( (string) a.Value);})" />
             <input type="submit" name="submit" onclick="@Submit" />
         </div>
         <div>
             @foreach(var state in filteredStates)
             {
-                <p onclick="(() => setInput(state))">@state</p>
+                <div @onclick="(() => setInput(state))">
+                    <p>@state</p>
+                </div>
             }
         </div>
     </div>
@@ -29,19 +32,22 @@
     [Parameter]
     public EventCallback<(int, string)> IsVisibleChanged { get; set; }
 
+    public string? cat1 { get; set; }
+    public string? cat2 { get; set; }
+
     [Parameter]
-    public string? HeaderText { get; set; }
+    public List<string>? states { get; set; }
 
     public string input { get; set; } = "";
     public int index { get; set; } = 0;
-    public List<string> states = new List<string>{""};
     private List<string> filteredStates = new List<string>();
 
 
-    public void Show(int index, string headerText)
+    public void Show(int index, string cat1, string cat2)
     {
         this.index = index;
-        HeaderText = headerText;
+        this.cat1 = cat1;
+        this.cat2 = cat2;
         IsVisible = true;
         input = "";
         StateHasChanged();
@@ -50,21 +56,20 @@
     private void setInput(string state)
     {
         input = state;
+        filteredStates = new List<string>();
     }
 
     private void onInput(string newInput)
     {
+        if (states == null)
+            states = new List<string>();
         input = newInput;
-        filteredStates = states.FindAll(a => a.Contains(input));
-    }
-    public void SetStates(List<string> input)
-    {
-        states.AddRange(input);
+        if(input.Length > 1)
+            filteredStates = states.FindAll(a => a.Contains(input));
     }
 
     private void Close()
     {
-        HeaderText = string.Empty;
         IsVisible = false;
         StateHasChanged();
     }
@@ -73,6 +78,7 @@
     {
         IsVisibleChanged.InvokeAsync((index, input));
         IsVisible = false;
+        filteredStates = new List<string>();
         StateHasChanged();
     }
 }

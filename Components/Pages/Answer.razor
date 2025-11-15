@@ -2,15 +2,12 @@
 
 @if (@state != null)
 {
-<p>@rarity - @score%</p>
-    <img src ="@imageSource" />
-<p>@state</p>
+    <img style="display:block; width:100%;" src="@imageSource" />
+    <p style="text-align: center">@state</p>
 } 
 
 
 @code {
-    private string? rarity = null;
-    private double? score = null;
     private string state = "";
     private string imageSource = "";
 
@@ -22,8 +19,6 @@
         if(state != stateParam)
         {
             state = stateParam;
-            score = 10.1;
-            rarity = "rare";
             ShowImage(stateParam);
         }
     }
