@@ -18,7 +18,7 @@
         <div>
             @foreach(var state in filteredStates)
             {
-                <div @onclick="(() => setInput(state))">
+                <div class="popupCell" @onclick="@(t => {@setInput(state);})">
                     <p>@state</p>
                 </div>
             }
@@ -53,10 +53,11 @@
         StateHasChanged();
     }
 
-    private void setInput(string state)
+    private bool setInput(string state)
     {
         input = state;
         filteredStates = new List<string>();
+        return false;
     }
 
     private void onInput(string newInput)
@@ -65,7 +66,7 @@
             states = new List<string>();
         input = newInput;
         if(input.Length > 1)
-            filteredStates = states.FindAll(a => a.Contains(input));
+            filteredStates = states.FindAll(a => a.Contains(input, StringComparison.InvariantCultureIgnoreCase));
     }
 
     private void Close()
