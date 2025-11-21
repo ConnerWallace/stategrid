@@ -193,6 +193,10 @@
   }
 }
 
+td:hover {
+    background: #cccccc;
+}
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
