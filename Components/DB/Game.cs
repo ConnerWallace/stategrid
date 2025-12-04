@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BlazorApp1.Components.DB;
+namespace BlazorApp1;
 
 public partial class Game
 {
@@ -18,4 +18,6 @@ public partial class Game
     public int? Cat6 { get; set; }
 
     public int Id { get; set; }
+
+    public virtual ICollection<Answer> Answers { get; set; } = new List<Answer>();
 }

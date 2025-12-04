@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BlazorApp1.Components.DB;
+namespace BlazorApp1;
 
 public partial class State
 {
     public int Id { get; set; }
 
     public string? Name { get; set; }
+
+    public string? NamePure { get; set; }
 
     public string? Abbreviation { get; set; }
 
@@ -17,11 +19,17 @@ public partial class State
 
     public string? Capital { get; set; }
 
+    public string? Capital2 { get; set; }
+
+    public string? Capital3 { get; set; }
+
     public int? CapitalPopulation { get; set; }
 
     public string? BigCity { get; set; }
 
     public int? BigCityPopulation { get; set; }
+
+    public int? PopulationDensity { get; set; }
 
     public int? TallestBuildingHeight { get; set; }
 
@@ -60,8 +68,6 @@ public partial class State
     public int? SuperBowlHost { get; set; }
 
     public int? SuperBowlPlay { get; set; }
-
-    public double? PopulationDensity { get; set; }
 
     public int? PresidentBirthplace { get; set; }
 
@@ -126,4 +132,14 @@ public partial class State
     public int? NameNative { get; set; }
 
     public int? NameEuropean { get; set; }
+
+    public int? IvyLeague { get; set; }
+
+    public int? PresidentHomeState { get; set; }
+
+    public string? Region { get; set; }
+
+    public int? LouisianaPurchase { get; set; }
+
+    public int? GulfOfMexico { get; set; }
 }

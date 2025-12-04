@@ -1,0 +1,63 @@
+﻿@rendermode InteractiveServer
+
+@if (@state != null)
+{
+    <img style="display:block; width:100%;" src="@imageSource" />
+    <p style="text-align: center">@state</p>
+    <p style="text-align: center">@rarityType - @rarity%</p>
+}
+else
+{
+    <p><img style="display:block; width:100%;"/></p>
+}
+
+
+@code {
+    private string? state = null;
+    private string imageSource = "";
+    private string rarityDisplay = "";
+    private string rarityType = "";
+
+    [Parameter]
+    public string stateParam { get; set; } = "";
+    [Parameter]
+    public double rarity { get; set; } = 1;
+
+    protected override void OnParametersSet()
+    {
+        if(state != stateParam)
+        {
+            state = stateParam;
+            ShowImage(stateParam);
+        }
+
+        rarityDisplay = rarity.ToString("F");
+
+        switch (rarity)
+        {
+            case 0:
+                rarityType = "First";
+                break;
+            case < 5:
+                rarityType = "Legendary";
+                break;
+            case < 10:
+                rarityType = "Epic";
+                break;
+            case < 20:
+                rarityType = "Rare";
+                break;
+            case < 30:
+                rarityType = "Uncommon";
+                break;
+            default:
+                rarityType = "Common";
+                break;
+                
+
+        }
+    }
+
+    private void ShowImage(string name) => imageSource = $"flags/{name}.svg";
+
+}

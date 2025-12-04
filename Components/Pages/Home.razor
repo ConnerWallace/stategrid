@@ -31,22 +31,22 @@ else
             <tbody>
                 <tr>
                     <CategoryContainer CategoryTitle="@Categories[3].Name" />
-                    <td class="table-cell" @onclick="() => setValue(0)"> <Answer stateParam="@answers[0]" /></td>
-                    <td class="table-cell" @onclick="() => setValue(1)"> <Answer stateParam="@answers[1]" /></td>
-                    <td class="table-cell" @onclick="() => setValue(2)"> <Answer stateParam="@answers[2]" /></td>
+                    <td class="table-cell" @onclick="() => setValue(0)"> <AnswerContainer stateParam="@answers[0]" rarity="@rarities[0]" /></td>
+                    <td class="table-cell" @onclick="() => setValue(1)"> <AnswerContainer stateParam="@answers[1]" rarity="@rarities[1]" /></td>
+                    <td class="table-cell" @onclick="() => setValue(2)"> <AnswerContainer stateParam="@answers[2]" rarity="@rarities[2]" /></td>
 
                 </tr>
                 <tr>
                     <CategoryContainer CategoryTitle="@Categories[4].Name" />
-                    <td class="table-cell" @onclick="() => setValue(3)"> <Answer stateParam="@answers[3]" /></td>
-                    <td class="table-cell" @onclick="() => setValue(4)"> <Answer stateParam="@answers[4]" /></td>
-                    <td class="table-cell" @onclick="() => setValue(5)"> <Answer stateParam="@answers[5]" /></td>
+                    <td class="table-cell" @onclick="() => setValue(3)"> <AnswerContainer stateParam="@answers[3]" rarity="@rarities[3]" /></td>
+                    <td class="table-cell" @onclick="() => setValue(4)"> <AnswerContainer stateParam="@answers[4]" rarity="@rarities[4]" /></td>
+                    <td class="table-cell" @onclick="() => setValue(5)"> <AnswerContainer stateParam="@answers[5]" rarity="@rarities[5]" /></td>
                 </tr>
                 <tr>
                     <CategoryContainer CategoryTitle="@Categories[5].Name" />
-                    <td class="table-cell" @onclick="() => setValue(6)"> <Answer stateParam="@answers[6]" /></td>
-                    <td class="table-cell" @onclick="() => setValue(7)"> <Answer stateParam="@answers[7]" /></td>
-                    <td class="table-cell" @onclick="() => setValue(8)"> <Answer stateParam="@answers[8]" /></td>
+                    <td class="table-cell" @onclick="() => setValue(6)"> <AnswerContainer stateParam="@answers[6]" rarity="@rarities[6]" /></td>
+                    <td class="table-cell" @onclick="() => setValue(7)"> <AnswerContainer stateParam="@answers[7]" rarity="@rarities[7]" /></td>
+                    <td class="table-cell" @onclick="() => setValue(8)"> <AnswerContainer stateParam="@answers[8]" rarity="@rarities[8]" /></td>
                 </tr>
             </tbody>
         </table>
@@ -60,7 +60,8 @@ else
 @code {
     private Popup popupRef;
     private Category[] Categories = new Category[6];
-    private string[] answers = new string[] { "", "", "", "", "", "", "", "", "" };
+    private string[] answers = new string[9];
+    private double[] rarities = new double[9];
     private List<List<string>> categoriesCorrectAnswers = new List<List<string>>();
     private int gameNumber = (int)(DateTime.Now - DateTime.Parse("11/13/2025")).TotalDays; //Loses a day for some reason
     private List<string> allStates = new List<string>();
@@ -71,6 +72,7 @@ else
 
     public Home()
     {
+        gameNumber = 19;
         popupRef = new Popup();
         Game todaysGame = dB.Games.Single(b => b.Id == gameNumber);
         Categories[0] = dB.Categories.Single(c => c.Id == todaysGame.Cat1);
@@ -110,6 +112,8 @@ else
 
     private void onSubmit((int index, string input) a)
     {
+
+
         var (x, y) = xyFromIndex(a.index);
         var answer = a.input.ToLowerInvariant();
 
@@ -118,15 +122,38 @@ else
         && !answers.Contains(answer)
         )
         {
-            answers[a.index] = a.input;
+            var listOfSubmittedAnswers = dB.Answers.Where(c => c.Game == gameNumber && c.AnswerSlot == a.index).ToList();
 
-            //dB.getScore(answer, gameNumber, a.index);
-            //dB.updateScore(answer, gameNumber, a.index);
+            var currentAnswer = listOfSubmittedAnswers.Find(a => a.StateName == answer);
+            int sum = 0;
+            foreach (Answer answer1 in listOfSubmittedAnswers)
+            {
+                sum += answer1.NumberOfGuesses.GetValueOrDefault(0);
+            }
+            if (currentAnswer != null)
+            {
+                rarities[a.index] = currentAnswer.NumberOfGuesses.GetValueOrDefault(0) / (double)sum * 100.0;
+                currentAnswer.NumberOfGuesses += 1;
+
+            } else
+            {
+                currentAnswer = new Answer
+                    {
+                        Game = gameNumber,
+                        StateName = answer,
+                        AnswerSlot = a.index,
+                        NumberOfGuesses = 1
+                    };
+                dB.Answers.Add(currentAnswer);
+            }
+            _ = dB.SaveChangesAsync();
+
+            answers[a.index] = a.input;
         }
         bool winnable = true;
         foreach(string i in answers)
         {
-            if (i == "")
+            if (i == null)
                 winnable = false;
         }
         win = winnable;

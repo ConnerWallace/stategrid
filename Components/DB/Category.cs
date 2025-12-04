@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BlazorApp1.Components.DB;
+namespace BlazorApp1;
 
 public partial class Category
 {
@@ -10,4 +10,8 @@ public partial class Category
     public string? Name { get; set; }
 
     public string? Clause { get; set; }
+
+    public string? Modifier { get; set; }
+
+    public string? Description { get; set; }
 }

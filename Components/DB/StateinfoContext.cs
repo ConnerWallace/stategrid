@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlazorApp1.Components.DB;
+namespace BlazorApp1;
 
 public partial class StateinfoContext : DbContext
 {
@@ -14,6 +14,8 @@ public partial class StateinfoContext : DbContext
         : base(options)
     {
     }
+
+    public virtual DbSet<Answer> Answers { get; set; }
 
     public virtual DbSet<Category> Categories { get; set; }
 
@@ -27,11 +29,26 @@ public partial class StateinfoContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Answer>(entity =>
+        {
+            entity.ToTable("answers");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.AnswerSlot).HasColumnName("answerSlot");
+            entity.Property(e => e.Game).HasColumnName("game");
+            entity.Property(e => e.NumberOfGuesses).HasColumnName("numberOfGuesses");
+            entity.Property(e => e.StateName).HasColumnName("stateName");
+
+            entity.HasOne(d => d.GameNavigation).WithMany(p => p.Answers).HasForeignKey(d => d.Game);
+        });
+
         modelBuilder.Entity<Category>(entity =>
         {
             entity.ToTable("categories");
 
             entity.Property(e => e.Clause).HasColumnName("clause");
+            entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.Modifier).HasColumnName("modifier");
             entity.Property(e => e.Name).HasColumnName("name");
         });
 
@@ -63,6 +80,8 @@ public partial class StateinfoContext : DbContext
             entity.Property(e => e.BigCityPopulation).HasColumnName("bigCityPopulation");
             entity.Property(e => e.BorderStateNum).HasColumnName("borderStateNum");
             entity.Property(e => e.Capital).HasColumnName("capital");
+            entity.Property(e => e.Capital2).HasColumnName("capital2");
+            entity.Property(e => e.Capital3).HasColumnName("capital3");
             entity.Property(e => e.CapitalPopulation).HasColumnName("capitalPopulation");
             entity.Property(e => e.Cardinal).HasColumnName("cardinal");
             entity.Property(e => e.Confederate).HasColumnName("confederate");
@@ -91,13 +110,17 @@ public partial class StateinfoContext : DbContext
             entity.Property(e => e.GdpPerCapita).HasColumnName("gdpPerCapita");
             entity.Property(e => e.GovernorParty).HasColumnName("governorParty");
             entity.Property(e => e.GreatLakes).HasColumnName("greatLakes");
+            entity.Property(e => e.GulfOfMexico).HasColumnName("gulfOfMexico");
             entity.Property(e => e.InternationalBorder)
                 .HasColumnType("INTEGER")
                 .HasColumnName("internationalBorder");
+            entity.Property(e => e.IvyLeague).HasColumnName("ivyLeague");
+            entity.Property(e => e.LouisianaPurchase).HasColumnName("louisianaPurchase");
             entity.Property(e => e.MississippiRiver).HasColumnName("mississippiRiver");
             entity.Property(e => e.Name).HasColumnName("name");
             entity.Property(e => e.NameEuropean).HasColumnName("nameEuropean");
             entity.Property(e => e.NameNative).HasColumnName("nameNative");
+            entity.Property(e => e.NamePure).HasColumnName("namePure");
             entity.Property(e => e.NuclearPower).HasColumnName("nuclearPower");
             entity.Property(e => e.Olympics).HasColumnName("olympics");
             entity.Property(e => e.OriginalColony).HasColumnName("originalColony");
@@ -107,6 +130,8 @@ public partial class StateinfoContext : DbContext
                 .HasColumnName("populationDensity");
             entity.Property(e => e.PresidentBirthplace).HasColumnName("presidentBirthplace");
             entity.Property(e => e.PresidentElectorNum).HasColumnName("presidentElectorNum");
+            entity.Property(e => e.PresidentHomeState).HasColumnName("presidentHomeState");
+            entity.Property(e => e.Region).HasColumnName("region");
             entity.Property(e => e.RockyMountains).HasColumnName("rockyMountains");
             entity.Property(e => e.SeaCoast).HasColumnName("seaCoast");
             entity.Property(e => e.Springfield).HasColumnName("springfield");
