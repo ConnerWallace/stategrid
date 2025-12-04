@@ -72,7 +72,6 @@ else
 
     public Home()
     {
-        gameNumber = 19;
         popupRef = new Popup();
         Game todaysGame = dB.Games.Single(b => b.Id == gameNumber);
         Categories[0] = dB.Categories.Single(c => c.Id == todaysGame.Cat1);
