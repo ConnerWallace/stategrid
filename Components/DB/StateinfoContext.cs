@@ -15,8 +15,6 @@ public partial class StateinfoContext : DbContext
     {
     }
 
-    public virtual DbSet<Answer> Answers { get; set; }
-
     public virtual DbSet<Category> Categories { get; set; }
 
     public virtual DbSet<Game> Games { get; set; }
@@ -29,18 +27,6 @@ public partial class StateinfoContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Answer>(entity =>
-        {
-            entity.ToTable("answers");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.AnswerSlot).HasColumnName("answerSlot");
-            entity.Property(e => e.Game).HasColumnName("game");
-            entity.Property(e => e.NumberOfGuesses).HasColumnName("numberOfGuesses");
-            entity.Property(e => e.StateName).HasColumnName("stateName");
-
-            entity.HasOne(d => d.GameNavigation).WithMany(p => p.Answers).HasForeignKey(d => d.Game);
-        });
 
         modelBuilder.Entity<Category>(entity =>
         {

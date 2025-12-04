@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using BlazorApp1.Components.DB
 @using Microsoft.Data.Sqlite
+@using BlazorApp1.Components.UserData
 @rendermode InteractiveServer
 
 
@@ -66,8 +67,8 @@ else
     private int gameNumber = (int)(DateTime.Now - DateTime.Parse("11/13/2025")).TotalDays; //Loses a day for some reason
     private List<string> allStates = new List<string>();
     private bool win = false;
-
     private StateinfoContext dB = new StateinfoContext();
+    private UserDataContext userDataContext = new UserDataContext();
     private TestDbContext dbButBad = new TestDbContext();
 
     public Home()
@@ -121,7 +122,7 @@ else
         && !answers.Contains(answer)
         )
         {
-            var listOfSubmittedAnswers = dB.Answers.Where(c => c.Game == gameNumber && c.AnswerSlot == a.index).ToList();
+            var listOfSubmittedAnswers = userDataContext.Answers.Where(c => c.Game == gameNumber && c.AnswerSlot == a.index).ToList();
 
             var currentAnswer = listOfSubmittedAnswers.Find(a => a.StateName == answer);
             int sum = 0;
@@ -143,9 +144,9 @@ else
                         AnswerSlot = a.index,
                         NumberOfGuesses = 1
                     };
-                dB.Answers.Add(currentAnswer);
+                userDataContext.Answers.Add(currentAnswer);
             }
-            _ = dB.SaveChangesAsync();
+            _ = userDataContext.SaveChangesAsync();
 
             answers[a.index] = a.input;
         }
