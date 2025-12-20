@@ -4,7 +4,7 @@
 @using BlazorApp1.Components.UserData
 @rendermode InteractiveServer
 
-
+@inject IJSRuntime JSRuntime
 @if (Categories == null)
 {
     <p><em>Loading...</em></p>
@@ -14,46 +14,63 @@ else
     <CascadingValue Value=@this IsFixed=true>
         <Popup @ref="popupRef" states="allStates" IsVisibleChanged="@(args=> onSubmit(args))" />
     </CascadingValue>
-    <div>
-        @if (win)
-        {
-            <h1>You win</h1>
-        }
-        <table class="table">
-            <thead>
-                <tr>
-                    <th  class="invisible"></th>
 
-                    <CategoryContainer CategoryTitle="@Categories[0].Name" />
-                    <CategoryContainer CategoryTitle="@Categories[1].Name" />
-                    <CategoryContainer CategoryTitle="@Categories[2].Name" />
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <CategoryContainer CategoryTitle="@Categories[3].Name" />
-                    <td class="table-cell" @onclick="() => setValue(0)"> <AnswerContainer stateParam="@answers[0]" rarity="@rarities[0]" /></td>
-                    <td class="table-cell" @onclick="() => setValue(1)"> <AnswerContainer stateParam="@answers[1]" rarity="@rarities[1]" /></td>
-                    <td class="table-cell" @onclick="() => setValue(2)"> <AnswerContainer stateParam="@answers[2]" rarity="@rarities[2]" /></td>
+    <div class="top-container">
+        <div class="three-column-layout">
+            <div class="sidebar"></div>
+            <div class="board">
+                <div class="panel">
+                    <div class="row">
+                        <div class="invisible"></div>
+                        <div class="prompt column-prompt">
+                            <CategoryContainer CategoryTitle="@Categories[0].Name" />
+                        </div>
+                        <div class="prompt column-prompt">
+                            <CategoryContainer CategoryTitle="@Categories[1].Name" />
+                        </div>
+                        <div class="prompt column-prompt">
+                            <CategoryContainer CategoryTitle="@Categories[2].Name" />
+                        </div>
+                    </div>
 
-                </tr>
-                <tr>
-                    <CategoryContainer CategoryTitle="@Categories[4].Name" />
-                    <td class="table-cell" @onclick="() => setValue(3)"> <AnswerContainer stateParam="@answers[3]" rarity="@rarities[3]" /></td>
-                    <td class="table-cell" @onclick="() => setValue(4)"> <AnswerContainer stateParam="@answers[4]" rarity="@rarities[4]" /></td>
-                    <td class="table-cell" @onclick="() => setValue(5)"> <AnswerContainer stateParam="@answers[5]" rarity="@rarities[5]" /></td>
-                </tr>
-                <tr>
-                    <CategoryContainer CategoryTitle="@Categories[5].Name" />
-                    <td class="table-cell" @onclick="() => setValue(6)"> <AnswerContainer stateParam="@answers[6]" rarity="@rarities[6]" /></td>
-                    <td class="table-cell" @onclick="() => setValue(7)"> <AnswerContainer stateParam="@answers[7]" rarity="@rarities[7]" /></td>
-                    <td class="table-cell" @onclick="() => setValue(8)"> <AnswerContainer stateParam="@answers[8]" rarity="@rarities[8]" /></td>
-                </tr>
-            </tbody>
-        </table>
-        <div style=" display:inline-block">
-            <p>game number: @gameNumber</p>
+                    <div class="row">
+                        <div class="prompt row-prompt">
+                            <CategoryContainer CategoryTitle="@Categories[3].Name" />
+                        </div>
+                        <div class="box" @onclick="() => setValue(0)"> <AnswerContainer stateParam="@answers[0]" rarity="@rarities[0]" /></div>
+                        <div class="box" @onclick="() => setValue(1)"> <AnswerContainer stateParam="@answers[1]" rarity="@rarities[1]" /></div>
+                        <div class="box" @onclick="() => setValue(2)"> <AnswerContainer stateParam="@answers[2]" rarity="@rarities[2]" /></div>
 
+                    </div>
+                    <div class="row">
+                        <div class="prompt row-prompt">
+                            <CategoryContainer CategoryTitle="@Categories[4].Name" />
+                         </div>
+                        <div class="box" @onclick="() => setValue(3)"> <AnswerContainer stateParam="@answers[3]" rarity="@rarities[3]" /></div>
+                        <div class="box" @onclick="() => setValue(4)"> <AnswerContainer stateParam="@answers[4]" rarity="@rarities[4]" /></div>
+                        <div class="box" @onclick="() => setValue(5)"> <AnswerContainer stateParam="@answers[5]" rarity="@rarities[5]" /></div>
+                    </div>
+                     <div class="row">
+                        <div class="prompt row-prompt">
+                            <CategoryContainer CategoryTitle="@Categories[5].Name" />
+                        </div>
+                        <div class="box" @onclick="() => setValue(6)"> <AnswerContainer stateParam="@answers[6]" rarity="@rarities[6]" /></div>
+                        <div class="box" @onclick="() => setValue(7)"> <AnswerContainer stateParam="@answers[7]" rarity="@rarities[7]" /></div>
+                        <div class="box" @onclick="() => setValue(8)"> <AnswerContainer stateParam="@answers[8]" rarity="@rarities[8]" /></div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="card column-item">
+                        game number: @gameNumber
+                    </div>
+                    <div class="card column-item">
+                        Score: @score
+                    </div>
+                    <div class="card column-item"> <ClipboardButton Text="@forClipboard"></ClipboardButton> </div>
+                </div>
+            </div>
+            <div class="sidebar"></div>
         </div>
     </div>
 }
@@ -62,7 +79,7 @@ else
     private Popup popupRef;
     private Category[] Categories = new Category[6];
     private string[] answers = new string[9];
-    private double[] rarities = new double[9];
+    private double[] rarities = new double[] { 100, 100 ,100,  100, 100, 100,  100, 100, 100};
     private List<List<string>> categoriesCorrectAnswers = new List<List<string>>();
     private int gameNumber = (int)(DateTime.Now - DateTime.Parse("11/13/2025")).TotalDays; //Loses a day for some reason
     private List<string> allStates = new List<string>();
@@ -70,6 +87,8 @@ else
     private StateinfoContext dB = new StateinfoContext();
     private UserDataContext userDataContext = new UserDataContext();
     private TestDbContext dbButBad = new TestDbContext();
+    private double score = 900;
+    private string forClipboard = "";
 
     public Home()
     {
@@ -101,6 +120,8 @@ else
         categoriesCorrectAnswers[5].AddRange(dbButBad.query(Categories[5].Clause));
 
         allStates.AddRange(dbButBad.query("Select name from States"));
+
+        emojify();
     }
 
     private async Task setValue(int index)
@@ -115,16 +136,16 @@ else
 
 
         var (x, y) = xyFromIndex(a.index);
-        var answer = a.input.ToLowerInvariant();
+        var answer = a.input;
 
-        if (categoriesCorrectAnswers[x].Contains(answer)
-        && categoriesCorrectAnswers[y].Contains(answer)
+        if (categoriesCorrectAnswers[x].Contains(answer, StringComparer.OrdinalIgnoreCase)
+        && categoriesCorrectAnswers[y].Contains(answer, StringComparer.OrdinalIgnoreCase)
         && !answers.Contains(answer)
         )
         {
             var listOfSubmittedAnswers = userDataContext.Answers.Where(c => c.Game == gameNumber && c.AnswerSlot == a.index).ToList();
 
-            var currentAnswer = listOfSubmittedAnswers.Find(a => a.StateName == answer);
+            var currentAnswer = listOfSubmittedAnswers.Find(a => a.StateName.Equals(answer, StringComparison.InvariantCultureIgnoreCase));
             int sum = 0;
             foreach (Answer answer1 in listOfSubmittedAnswers)
             {
@@ -144,20 +165,51 @@ else
                         AnswerSlot = a.index,
                         NumberOfGuesses = 1
                     };
+                rarities[a.index] = 0;
                 userDataContext.Answers.Add(currentAnswer);
             }
             _ = userDataContext.SaveChangesAsync();
 
-            answers[a.index] = a.input;
-        }
-        bool winnable = true;
-        foreach(string i in answers)
-        {
-            if (i == null)
-                winnable = false;
-        }
-        win = winnable;
 
+            score = rarities.Sum();
+            answers[a.index] = categoriesCorrectAnswers[x].FirstOrDefault(t => string.Equals(answer,t, StringComparison.InvariantCultureIgnoreCase))!;
+        }
+
+        emojify();
+    }
+
+
+    public void emojify()
+    {
+        var text = scoreToEmoji(0) + scoreToEmoji(1) + scoreToEmoji(2) + "\r\n" +
+                scoreToEmoji(3) + scoreToEmoji(4) + scoreToEmoji(5) + "\r\n" +
+                scoreToEmoji(6) + scoreToEmoji(7) + scoreToEmoji(8) + "\r\n" +
+                "score: " + score + " | game #" + gameNumber + "\r\n" +
+                "http://stategriddle.com";
+
+        forClipboard = text;
+    }
+    private string scoreToEmoji(int index)
+    {
+        if (answers[index] == null)
+            return "❌";
+        var score = rarities[index];
+
+        switch (score)
+        {
+            case 0:
+                return "🦅";
+            case < 5:
+                return "🟥";
+            case < 10:
+                return "🟪";
+            case < 20:
+                return "🟦";
+            case < 30:
+                return "🟨";
+            default:
+                return "🟩";
+        }
     }
 
     private (int, int) xyFromIndex(int index)

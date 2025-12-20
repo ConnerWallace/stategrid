@@ -6,6 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.Services.AddScoped<BlazorApp1.Services.ClipBoardService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -20,6 +22,8 @@ app.UseHttpsRedirection();
 
 
 app.UseAntiforgery();
+
+
 
 app.MapStaticAssets();
 app.MapRazorComponents<App>()

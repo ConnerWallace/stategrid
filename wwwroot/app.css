@@ -71,3 +71,95 @@ h1:focus {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
+
+.board {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
+    gap: 12px;
+}
+
+.top-container{
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.three-column-layout{
+    display: flex;
+    background-color: #232330;
+    justify-content: center;
+    flex: 1;
+}
+.sidebar {
+    width: 350px;
+    min-height: 500px;
+    padding: .8rem;
+    position: sticky;
+    top: 0;
+}
+.panel {
+    flex-direction: column;
+}
+.panel, .row {
+    display: flex;
+    gap: 8px;
+}
+.row {
+    align-items: stretch;
+    flex-direction:row;
+    height: var(--cell-width);
+}
+.row:first-child {
+	height: -moz-max-content;
+	height: max-content;
+	margin-bottom: 8px;
+	margin-right: 0;
+}
+.prompt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #dfdfdf;
+    font-size: 14px;
+    background-color: #4c4c67;
+    min-height: 60px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 16px;
+    cursor: pointer;
+    width: var(--cell-width);
+}
+.box {
+    width: var(--cell-width);
+    height: 100%;
+    background-color: rgba(0,0,0,.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: #dfdfdf;
+    cursor: pointer;
+    transition: background-color .25s;
+    border-radius: 12px;
+    box-sizing: border-box;
+    padding: 6px;
+}
+.invisible {
+    width: var(--cell-width);
+}
+.column-item{
+    padding: 8px;
+}
+
+:root {
+    --cell-width: 150px;
+    --cell-width-tablet: 120px;
+    --cell-width-mobile: 90px;
+    --cell-width-small-mobile: 80px;
+    --cell-width-minuscule-mobile: 70px;
+}

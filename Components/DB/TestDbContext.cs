@@ -21,7 +21,7 @@ namespace BlazorApp1.Components.DB
             var reader = command.ExecuteReader();
             while (reader.Read())
             {
-                returnObject.Add(reader.GetString(0).ToLowerInvariant());
+                returnObject.Add(reader.GetString(0));
             }
 
 
