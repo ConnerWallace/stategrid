@@ -3,7 +3,7 @@
     var showClass = IsVisible ? "d-block" : "d-none";
 }
 
-<div class="toast-container  p-3 @showClass" data-bs-autohide="true" data-bs-delay="5000">
+<div class="toast-container  p-3 @showClass" data-bs-autohide="true" data-bs-delay="0">
     <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
             <strong class="me-auto">@cat1</strong>
@@ -12,7 +12,7 @@
         </div>
 
         <div class="toast-body">
-            <input autocomplete="off" type="search" name="name" @bind="input" @oninput="@(a => {onInput( (string) a.Value);})" />
+            <input autocomplete="off" @ref="submitBox" type="search" name="name" @bind="input" @oninput="@(a => { onInput((string)a.Value); })" />
             <input type="submit" name="submit" onclick="@Submit" />
         </div>
         <div>
@@ -41,7 +41,7 @@
     public string input { get; set; } = "";
     public int index { get; set; } = 0;
     private List<string> filteredStates = new List<string>();
-
+    private ElementReference submitBox;
 
     public void Show(int index, string cat1, string cat2)
     {
@@ -51,6 +51,13 @@
         IsVisible = true;
         input = "";
         StateHasChanged();
+        focusInput();
+    }
+
+    public async void focusInput()
+    {
+        await Task.Delay(30);
+        await submitBox.FocusAsync();
     }
 
     private bool setInput(string state)
