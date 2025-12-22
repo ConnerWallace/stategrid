@@ -1,24 +1,614 @@
-﻿@if(categoryNumber == 1)
+﻿@if(categoryNumber == 0)
 {
-    <b>Category Name</b>
+    <b>State starts/ends with X</b>
     <p>
-        States for which their current governor is of a given political party.
-    </p><p>
-        For U.S. territories, political parties/governors that affiliate with one of the two major parties in the contiguous United States count as being part of said major parties. The mayor of the District of Columbia counts as a governor.
+        States for which their name starts or ends with a given letter. The state names count as they appear in the game. Non-letter characters do not count.
     </p>
-    <p>Source: <a href="https://en.wikipedia.org/wiki/List_of_current_United_States_governors">sourceDescription</a></p>
 } 
-else if(categoryNumber == 2)
+
+
+else if(categoryNumber == 1)
 {
-    <b>woowie</b>
+    <b>Capital starts/ends with X</b>
     <p>
-        States for which their current governor is of a given political party.
+        States for which their capital city name starts or ends with a given letter.
     </p>
 
     <p>
-        For U.S. territories, political parties/governors that affiliate with one of the two major parties in the contiguous United States count as being part of said major parties. The mayor of the District of Columbia counts as a governor.
+        For some territories, the capital village counts as the capital city. For the Northern Mariana Islands, its capital municipality counts as its capital city. American Samoa has three capitals that are valid: what is commonly listed as its capital, the constitutionally stipulated government seat, and the village which houses its governor.
     </p>
-    <p>Source: <a href="https://en.wikipedia.org/wiki/List_of_current_United_States_governors">sourceDescription</a></p>
+}
+
+
+else if(categoryNumber == 2)
+{
+    <b>Largest City starts/ends with X</b>
+    <p>
+        States for which their largest city name starts or ends with a given letter. ‘Largest city’ means largest in terms of population.
+    </p>
+
+    <p>
+        For some territories, the largest village counts as the largest city.
+    </p>
+}
+
+
+else if(categoryNumber == 3)
+{
+    <b>Capital is largest city</b>
+    <p>
+        States for which their capital city is also their largest city. ‘Largest city’ means largest in terms of population.
+    </p>
+
+    <p>
+        For some territories, the largest/capital village counts as the largest city. For the Northern Mariana Islands, its capital municipality counts as its capital city. American Samoa has three capitals that are valid: what is commonly listed as its capital, the constitutionally stipulated government seat, and the village which houses its governor.
+    </p>
+}
+
+
+else if(categoryNumber == 4)
+{
+    <b>State Population over/under X</b>
+    <p>
+        States for which their populations are above or below a given value.
+    </p>
+
+    <p>Populations are based on the latest estimates on this list Wikipedia article: <a href="https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_population">List of U.S. states and territories by population</a></p>
+}
+
+
+else if(categoryNumber == 5)
+{
+    <b>Capital Population over/under X</b>
+    <p>
+        States for which their capital city populations are above or below a given value.
+    </p>
+
+    <p>
+        For some territories, the capital village counts as the capital city. For the Northern Mariana Islands, its capital municipality counts as its capital city. American Samoa has three capitals that are valid: what is commonly listed as its capital, the constitutionally stipulated government seat, and the village which houses its governor.
+    </p>
+
+    <p>Populations are based on the latest estimates on this list Wikipedia article: <a href="https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_population">List of U.S. states and territories by population</a></p>
+}
+
+else if(categoryNumber == 6)
+{
+    <b>Largest City Population over/under X</b>
+
+    <p>
+        States for which their largest city populations are above or below a given value. ‘Largest city’ means largest in terms of population.
+    </p>
+
+    <p>
+        For some territories, the largest village counts as the largest city.
+    </p>
+
+    <p>Populations are based on the latest estimates on this list Wikipedia article: <a href="https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_population">List of U.S. states and territories by population</a></p>
+}
+
+else if(categoryNumber == 7)
+{
+    <b>Land Area greater/less than X sq mi</b>
+
+    <p>States for which their LAND area is above or below a given value in SQUARE MILES.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_area">List of U.S. states and territories by area</a></p>
+
+}
+
+else if(categoryNumber == 8)
+{
+    <b>Tallest Building greater/less than X feet</b>
+
+    <p>States for which their tallest building is above or below a given value in FEET.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/List_of_tallest_buildings_by_U.S._state_and_territory">List of tallest buildings by U.S. state and territory</a></p>
+
+    <p>According to the article, the height "includes spires and architectural details but does not include antenna masts."</p>
+
+}
+
+else if(categoryNumber == 9)
+{
+    <b>Admitted to the Union before/after X</b>
+
+    <p>States which were admitted to the Union before or after a given year. The date a state was “admitted  to the Union” means the date it officially became a state. U.S. territories have not been admitted to the Union.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/List_of_U.S._states_by_date_of_admission_to_the_Union">List of U.S. states by date of admission to the Union</a></p>
+
+}
+
+else if(categoryNumber == 10)
+{
+    <b>Among the first/last X states admitted to the Union</b>
+
+    <p>Based on the order in which states were admitted to the Union in relation to each other. The date a state was “admitted  to the Union” means the date it officially became a state. U.S. territories have not been admitted to the Union.</p>
+
+    <p>North Dakota and South Dakota have the same value in this category because they were admitted the same day, and it is unknown which was admitted first.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/List_of_U.S._states_by_date_of_admission_to_the_Union">List of U.S. states by date of admission to the Union</a></p>
+
+}
+
+else if(categoryNumber == 11)
+{
+    <b>GDP per capita greater/less than $X</b>
+
+    <p>States for which their Gross Domestic Product per Capita is above or below a given value in U.S. dollars.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_GDP">List of U.S. states and territories by GDP</a></p>
+
+}
+
+else if(categoryNumber == 12)
+{
+
+    <b>Borders X states</b>
+
+    <p>States which share a land border with a given amount of other states. The District of Columbia counts as a state.</p>
+
+}
+
+else if(categoryNumber == 13)
+{
+    <b>Has international border</b>
+
+    <p>States which share a land border with a foreign country. Maritime borders do not count.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/International_border_states_of_the_United_States">International border states of the United States</a></p>
+
+}
+
+else if(categoryNumber == 14)
+{
+    <b>Borders Canada</b>
+
+    <p>States which share a land border with Canada.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/International_border_states_of_the_United_States">International border states of the United States</a></p>
+
+}
+
+else if(categoryNumber == 15)
+{
+    <b>Borders Mexico</b>
+
+    <p>States which share a land border with Mexico.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/International_border_states_of_the_United_States">International border states of the United States</a></p>
+
+}
+
+else if(categoryNumber == 16)
+{
+    <b>Borders at least one Great Lake</b>
+
+    <p>States which have a coast on at least one of the following great lakes: Superior, Michigan, Huron, Erie, and Ontario.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/Great_Lakes_region">Great Lakes region</a></p>
+
+}
+
+else if(categoryNumber == 17)
+{
+
+    <b>Borders Pacific Ocean</b>
+
+    <p>States which have a coast on the Pacific Ocean.</p>
+
+}
+
+else if(categoryNumber == 18)
+{
+
+    <b>Borders Atlantic Ocean</b>
+
+    <p>States which have a coast on the Atlantic Ocean. The Caribbean Sea and the Gulf of Mexico count as part of the Atlantic.</p>
+
+}
+
+else if(categoryNumber == 19)
+{
+
+    <b>Borders Ocean</b>
+
+    <p>States which have a coast on an ocean. The Caribbean Sea and the Gulf of Mexico count as part of the Atlantic Ocean.</p>
+
+}
+
+else if(categoryNumber == 20)
+{
+
+    <b>Is landlocked</b>
+
+    <p>States which do not have a coast on the ocean. Having a coast on a Great Lake does NOT count as ocean.</p>
+
+}
+
+else if(categoryNumber == 21)
+{
+
+    <b>Contains Appalachian Mountains</b>
+
+    <p>States which contain part of the Appalachian Mountains.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/Appalachian_Mountains">Appalachian Mountains</a></p>
+
+}
+
+else if(categoryNumber == 22)
+{
+
+    <b>Contains Rocky  Mountains</b>
+
+    <p>States which contain part of the Rocky Mountains.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/Rocky_Mountains">Rocky Mountains</a></p>
+
+}
+
+else if(categoryNumber == 23)
+{
+
+    <b>Contains Mississippi River</b>
+
+    <p>States which contain part of the Mississippi River.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/List_of_longest_rivers_of_the_United_States">List of longest rivers of the United States</a></p>
+
+}
+
+else if(categoryNumber == 24)
+{
+
+    <b>Has locality named "Springfield"</b>
+
+    <p>States which have a city/town/village or any other type of locality called “Springfield”. It’s the most common locality name in the United States.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/Springfield_%28toponym%29">Springfield (toponym)</a></p>
+
+}
+
+else if(categoryNumber == 25)
+{
+
+    <b>Has X timezones</b>
+
+    <p>States which contain a given number of different timezones. Timezones in Native American reservations do not count for the sake of this question.</p>
+
+    <p>Source: <a href="https://www.thoughtco.com/states-split-into-two-time-zones-4072169">Which States Are Split Into Two Time Zones?</a></p>
+
+}
+
+else if(categoryNumber == 26)
+{
+
+    <b>Has hosted the Olympics</b>
+
+    <p>States which have hosted the Olympics in the past. This includes either the Summer or Winter Olympics. States which have only hosted individual events in the Olympics also count.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/List_of_Olympic_Games_host_cities">List of Olympic Games host cities</a></p>
+
+}
+
+else if(categoryNumber == 27)
+{
+
+    <b>Has hosted the Super Bowl</b>
+
+    <p>States which have hosted the Super Bowl in the past.</p>
+    
+    <p>Source: <a href="https://www.topendsports.com/events/super-bowl/hosts/index.htm">Super Bowl Host Cities and Locations by Year 1967-2028</a></p>
+
+}
+
+else if(categoryNumber == 28)
+{
+
+    <b>Has played in the Super Bowl</b>
+
+    <p>States which have a football team that has competed in the Super Bowl. Teams are counted as ‘belonging’ to a state based on what state their name refers to.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/List_of_Super_Bowl_champions">List of Super Bowl champions</a></p>
+
+}
+
+else if(categoryNumber == 29)
+{
+
+    <b>Is the birthplace of a U.S. president</b>
+
+    <p>States which are the birthplace of at least one former/current President of the United States. Presidential birthplaces may differ from their home states or states of primary affiliation.</p>
+
+    <p>Andrew Jackson’s exact state of birth is unclear. Both possible states of his birth are included as valid answers.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States_by_home_state">List of presidents of the United States by home state</a></p>
+
+}
+
+else if(categoryNumber == 30)
+{
+
+    <b>Was one of the Thirteen Colonies</b>
+
+    <p>States which were one of the original Thirteen Colonies of Great Britain.</p>
+
+    <p>This only includes the 13 states which share a name with one of the original colonies. States which were part of the territory of one of the original colonies but do not share a name with any of them do not count.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/Thirteen_Colonies">Thirteen Colonies</a></p>
+
+}
+
+else if(categoryNumber == 31)
+{
+
+    <b>Produces nuclear power</b>
+
+    <p>States which possess at least one active nuclear power plant.</p>
+
+    <p>Source: <a href="https://worldpopulationreview.com/state-rankings/nuclear-power-plants-by-state">Nuclear Power Plants by State 2025</a></p>
+
+}
+
+else if(categoryNumber == 32)
+{
+
+    <b>Current Governor is X party</b>
+
+    <p>States for which their current governor is of a given political party.</p>
+
+    <p>For U.S. territories, political parties/governors that affiliate with one of the two major parties in the contiguous United States count as being part of said major parties. The mayor of the District of Columbia counts as a governor.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/List_of_current_United_States_governors">List of current United States governors</a></p>
+
+}
+
+else if(categoryNumber == 33)
+{
+
+    <b>Has ever had a Woman Governor</b>
+
+    <p>States which have had a woman serve as governor, either in the past or present.</p>
+
+    <p>The mayor of the District of Columbia counts as a governor.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/List_of_female_governors_in_the_United_States">List of female governors in the United States</a></p>
+
+}
+
+else if(categoryNumber == 34)
+{
+
+    <b>Voted for Abraham Lincoln</b>
+
+    <p>States whose presidential electors voted for Abraham Lincoln for president in either 1860 or 1864. States which voted for Lincoln but whose electoral votes were rejected are valid answers.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/1860_United_States_presidential_election">1860</a> and <a href="https://en.wikipedia.org/wiki/1864_United_States_presidential_election">1864 United States presidential election</a></p>
+
+}
+
+else if(categoryNumber == 35)
+{
+
+    <b>Flag contains/does NOT contain X color</b>
+
+    <p>States for which their official state flag contains or does not contain a given color.</p>
+
+    <p>There are ten colors counted as being on flags: red, orange, yellow, green, blue, purple, brown, white, gray, and black. Some color distinctions are more subjective than others, such as yellow and orange. Sources, such as Wikipedia and friends, were consulted as to which colors should count as what.</p>
+
+}
+
+else if(categoryNumber == 36)
+{
+
+    <b>Flag contains/does NOT contain a Star/Sun</b>
+
+    <p>States for which their official state flag contains or does not contain a star or sun.</p>
+
+}
+
+else if(categoryNumber == 37)
+{
+
+    <b>Flag contains/does NOT contain a Human</b>
+
+    <p>States for which their official state flag contains or does not contain a depiction of a human.</p>
+
+}
+
+else if(categoryNumber == 38)
+{
+
+    <b>Flag contains/does NOT contain an Animal</b>
+
+    <p>States for which their official state flag contains or does not contain a depiction of a NON-HUMAN animal.</p>
+
+}
+
+else if(categoryNumber == 39)
+{
+
+    <b>Flag contains/does NOT contain an Eagle</b>
+
+    <p>States for which their official state flag contains or does not contain a depiction of an eagle, typically a bald eagle.</p>
+
+}
+
+else if(categoryNumber == 40)
+{
+
+    <b>Flag contains/does NOT contain a Coat of Arms</b>
+
+    <p>States for which their official state flag contains or does not contain a coat of arms/emblem/seal. The coat of arms could be of their state or of their county.</p>
+
+}
+
+else if(categoryNumber == 41)
+{
+
+    <b>Flag contains/does NOT contain Text</b>
+
+    <p>States for which their official state flag contains or does not contain a text.</p>
+
+}
+
+else if(categoryNumber == 42)
+{
+
+    <b>Flag contains/does NOT contain a Tree</b>
+
+    <p>States for which their official state flag contains or does not contain a depiction of trees.</p>
+
+    <p>It may be up to subjective interpretation whether or not some flags have trees on them.</p>
+
+}
+
+else if(categoryNumber == 43)
+{
+
+    <b>Flag has/does NOT have a Blue Background</b>
+
+    <p>States for which their official state flag contains or does not contain a blue background. In vexillological terms, this question pertains to flags with blue FIELDS. Blue borders alone do not count. Borders of a flag need not be blue.</p>
+
+}
+
+else if(categoryNumber == 44)
+{
+
+    <b>Flag has X number of colors</b>
+
+    <p>States for which their official state flag contains a given number of colors.</p>
+
+    <p>There are ten colors counted as being on flags: red, orange, yellow, green, blue, purple, brown, white, gray, and black. Different shades of these given colors do NOT count as separate colors.</p>
+
+    <p>Some color distinctions are more subjective than others, such as yellow and orange. Sources, such as Wikipedia and friends, were consulted as to which colors should count as what.</p>
+
+}
+
+else if(categoryNumber == 45)
+{
+
+    <b>Is a U.S. territory</b>
+
+    <p>Whether or not the given polity is a U.S. territory.</p>
+
+}
+
+else if(categoryNumber == 46)
+{
+
+    <b>Is an island</b>
+
+    <p>Whether or not the given polity consists entirely of islands.</p>
+
+}
+
+else if(categoryNumber == 47)
+{
+
+    <b>Hosts an Ivy League university</b>
+
+    <p>States which house at least one of the eight Ivy League universities.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/Ivy_League">Ivy League</a></p>
+
+}
+
+else if(categoryNumber == 48)
+{
+
+    <b>Top/Bottom X in Population Density</b>
+
+    <p>States which are in a given tier on the basis of their population density. Population densities are recorded by number of people per square mile.</p>
+
+    <p>Reminder: U.S. territories DO count in these questions.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_population_density">List of U.S. states and territories by population density</a></p>
+
+}
+
+else if(categoryNumber == 49)
+{
+
+    <b>State name is multiple words</b>
+
+    <p>States for which their name is broken into multiple words. The state names count as they appear in the game.</p>
+
+}
+
+else if(categoryNumber == 50)
+{
+
+    <b>State name is X letters</b>
+
+    <p>States for which their name is a given number of letters long. The state names count as they appear in the game. Non-letter characters such as spaces and punctuation do NOT count toward the length of a state’s name.</p>
+
+}
+
+else if(categoryNumber == 51)
+{
+
+    <b>Name is of X origin</b>
+
+    <p>States for which their name is of a given etymology: either Indigenous or European. Common, non-geographical words in a state’s name, such as “New”, “North”, and “South”, are not counted. States with disputed etymologies can count as having multiple etymologies.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/List_of_state_and_territory_name_etymologies_of_the_United_States">List of state and territory name etymologies of the United States</a></p>
+
+}
+
+else if(categoryNumber == 52)
+{
+
+    <b>Has X number of congressional districts</b>
+
+    <p>States which contain a given number of current congressional districts.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/List_of_United_States_congressional_districts">List of United States congressional districts</a></p>
+
+}
+
+else if(categoryNumber == 53)
+{
+
+    <b>Has X number of electoral votes</b>
+
+    <p>States which currently have a given number of electoral votes count in presidential elections.</p>
+
+    <p>Source: <a href="https://www.archives.gov/electoral-college/allocation">Distribution of Electoral Votes</a></p>
+
+}
+
+else if(categoryNumber == 54)
+{
+
+    <b>State is part of X region</b>
+
+    <p>States which are part of a given region, according to the United States Census Bureau. Official Census Bureau divisions may differ from specific regional or individual categorizations.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/United_States_Census_Bureau#Census_regions_and_divisions">United States Census Bureau</a></p>
+
+}
+
+else if(categoryNumber == 55)
+{
+
+    <b>State was part of the Louisiana Purchase</b>
+
+    <p>States for which their territory, either in part or in whole, was part of the Louisiana Purchase.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/Louisiana_Purchase">Louisiana Purchase</a></p>
+
+}
+
+else if(categoryNumber == 56)
+{
+
+    <b>State was part of the Louisiana Purchase</b>
+
+    <p>States which have a coast on the Gulf of Mexico. Also called the Gulf of America by fascist imbeciles.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/Gulf_Coast_of_the_United_States">Gulf Coast of the United States</a></p>
+
 }
 
 @code{
