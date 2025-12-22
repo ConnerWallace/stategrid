@@ -4,7 +4,6 @@
 @using BlazorApp1.Components.UserData
 @rendermode InteractiveServer
 
-@inject IJSRuntime JSRuntime
 @if (Categories == null)
 {
     <p><em>Loading...</em></p>
@@ -14,6 +13,9 @@ else
     <CascadingValue Value=@this IsFixed=true>
         <Popup @ref="popupRef" states="allStates" IsVisibleChanged="@(args=> onSubmit(args))" />
     </CascadingValue>
+    <Descriptions @ref="descRef"> 
+
+    </Descriptions>
 
     <div class="top-container">
         <div class="three-column-layout">
@@ -22,19 +24,19 @@ else
                 <div class="panel">
                     <div class="row">
                         <div class="invisible"></div>
-                        <div class="prompt column-prompt">
+                        <div class="prompt column-prompt" @onclick="() => showDes()">
                             <CategoryContainer CategoryTitle="@Categories[0].Name" />
                         </div>
-                        <div class="prompt column-prompt">
+                        <div class="prompt column-prompt" @onclick="() => showDes()">
                             <CategoryContainer CategoryTitle="@Categories[1].Name" />
                         </div>
-                        <div class="prompt column-prompt">
+                        <div class="prompt column-prompt" @onclick="() => showDes()">
                             <CategoryContainer CategoryTitle="@Categories[2].Name" />
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="prompt row-prompt">
+                        <div class="prompt row-prompt" @onclick="() => showDes()">
                             <CategoryContainer CategoryTitle="@Categories[3].Name" />
                         </div>
                         <div class="box" @onclick="() => setValue(0)"> <AnswerContainer stateParam="@answers[0]" rarity="@rarities[0]" /></div>
@@ -43,15 +45,15 @@ else
 
                     </div>
                     <div class="row">
-                        <div class="prompt row-prompt">
+                        <div class="prompt row-prompt" @onclick="() => showDes()">
                             <CategoryContainer CategoryTitle="@Categories[4].Name" />
-                         </div>
+                            </div>
                         <div class="box" @onclick="() => setValue(3)"> <AnswerContainer stateParam="@answers[3]" rarity="@rarities[3]" /></div>
                         <div class="box" @onclick="() => setValue(4)"> <AnswerContainer stateParam="@answers[4]" rarity="@rarities[4]" /></div>
                         <div class="box" @onclick="() => setValue(5)"> <AnswerContainer stateParam="@answers[5]" rarity="@rarities[5]" /></div>
                     </div>
-                     <div class="row">
-                        <div class="prompt row-prompt">
+                        <div class="row">
+                        <div class="prompt row-prompt" @onclick="() => showDes()">
                             <CategoryContainer CategoryTitle="@Categories[5].Name" />
                         </div>
                         <div class="box" @onclick="() => setValue(6)"> <AnswerContainer stateParam="@answers[6]" rarity="@rarities[6]" /></div>
@@ -77,6 +79,7 @@ else
 
 @code {
     private Popup popupRef;
+    private Descriptions descRef;
     private Category[] Categories = new Category[6];
     private string[] answers = new string[9];
     private double[] rarities = new double[] { 100, 100 ,100,  100, 100, 100,  100, 100, 100};
@@ -92,7 +95,6 @@ else
 
     public Home()
     {
-        popupRef = new Popup();
         Game todaysGame = dB.Games.Single(b => b.Id == gameNumber);
         Categories[0] = dB.Categories.Single(c => c.Id == todaysGame.Cat1);
         Categories[1] = dB.Categories.Single(c => c.Id == todaysGame.Cat2);
@@ -176,6 +178,11 @@ else
         }
 
         emojify();
+    }
+
+    public void showDes()
+    {
+        descRef.show();
     }
 
 

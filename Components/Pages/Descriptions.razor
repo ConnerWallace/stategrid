@@ -1,0 +1,54 @@
+﻿@using BlazorApp1.Components.Pages
+<div class="modal @ModalClass" tabindex="-1" role="dialog" style="display:@ModalDisplay">
+    <div class="modal-dialog" role="document" style="z-index:1055">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Category Descriptions</h5>
+            </div>
+            <div class="modal-body">
+                <div class="leftcolumn">
+                    @foreach (var d in descriptions){
+                        <ul>@d</ul>
+                    }
+                </div>
+                <div class="rightColumn">
+                    <DescriptionHolder categoryNumber="1"></DescriptionHolder>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (ShowBackdrop)
+    {
+        <div class="modal-backdrop fade show" data-dismiss="modal" @onclick="() => Close()"></div>
+    }
+</div>
+
+
+
+
+
+@code {
+
+
+    public Guid Guid = Guid.NewGuid();
+    public string ModalDisplay = "none;";
+    public string ModalClass = "";
+    public bool ShowBackdrop = false;
+    private List<string>  descriptions = new List<string>{"as", "as","4"};
+
+    public void show()
+    {
+        ModalDisplay = "block;";
+        ModalClass = "Show";
+        ShowBackdrop = true;
+        StateHasChanged();
+    }
+
+    public void Close()
+    {
+        ModalDisplay = "none";
+        ModalClass = "";
+        ShowBackdrop = false;
+        StateHasChanged();
+    }
+}
