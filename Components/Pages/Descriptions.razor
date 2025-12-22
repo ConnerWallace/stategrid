@@ -1,18 +1,18 @@
 ﻿@using BlazorApp1.Components.Pages
-<div class="modal @ModalClass" tabindex="-1" role="dialog" style="display:@ModalDisplay">
+<div class="modal modal-xl @ModalClass" tabindex="-1" role="dialog" style="display:@ModalDisplay">
     <div class="modal-dialog" role="document" style="z-index:1055">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Category Descriptions</h5>
             </div>
-            <div class="modal-body">
-                <div class="leftcolumn">
+            <div class="modal-body row modal-xl">
+                <div class="modal-box">
                     @foreach (var d in descriptions){
-                        <ul>@d</ul>
+                        <ul @onclick="() => categoryNumber=descriptions.IndexOf(d)">@d</ul>
                     }
                 </div>
-                <div class="rightColumn">
-                    <DescriptionHolder categoryNumber="2"></DescriptionHolder>
+                <div class="modal-box-right">
+                    <DescriptionHolder categoryNumber="categoryNumber"></DescriptionHolder>
                 </div>
             </div>
         </div>
@@ -34,7 +34,29 @@
     public string ModalDisplay = "none;";
     public string ModalClass = "";
     public bool ShowBackdrop = false;
-    private List<string>  descriptions = new List<string>{"as", "as","4"};
+    private int categoryNumber;
+    private List<string> descriptions = new List<string> { "State starts/ends with X",
+    "Capital starts/ends with X", "Largest City starts/ends with X", "Capital is largest city",
+    "State Population over/under X", "Capital Population over/under X", "Largest City Population over/under X",
+    "Land Area greater/less than X sq mi", "Tallest Building greater/less than X feet",
+    "Admitted to the Union before/after X", "Among the first/last X states admitted to the Union",
+    "GDP per capita greater/less than $X", "Borders X states", "Has international border", "Borders Canada",
+    "Borders Mexico", "Borders at least one Great Lake", "Borders Pacific Ocean", "Borders Atlantic Ocean",
+    "Borders Ocean", "Is landlocked", "Contains Appalachian Mountains", "Contains Rocky Mountains",
+    "Contains Mississippi River", "Has locality named 'Springfield'", "Has X timezones",
+    "Has hosted the Olympics", "Has hosted the Super Bowl", "Has played in the Super Bowl",
+    "Is the birthplace of a U.S. president", "Was one of the Thirteen Colonies",
+    "Produces nuclear power", "Current Governor is X party", "Has ever had a Woman Governor",
+    "Voted for Abraham Lincoln", "Flag contains/does NOT contain X color",
+    "Flag contains/does NOT contain a Star/Sun", "Flag contains/does NOT contain a Human",
+    "Flag contains/does NOT contain an Animal", "Flag contains/does NOT contain an Eagle",
+    "Flag contains/does NOT contain a Coat of Arms", "Flag contains/does NOT contain Text",
+    "Flag contains/does NOT contain a Tree", "Flag has/does NOT have a Blue Background",
+    "Flag has X number of colors", "Is a U.S. territory", "Is an island", "Hosts an Ivy League university",
+    "Top/Bottom X in Population Density", "State name is multiple words", "State name is X letters",
+    "Name is of X origin", "Has X number of congressional districts", "Has X number of electoral votes",
+    "State is part of X region", "State was part of the Louisiana Purchase", "Borders Gulf of Mexico"
+};
 
     public void show()
     {
