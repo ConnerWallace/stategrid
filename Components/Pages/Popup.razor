@@ -76,7 +76,7 @@
             filteredStates = states.FindAll(a => a.Contains(input, StringComparison.InvariantCultureIgnoreCase));
     }
 
-    private void Close()
+    public void Close()
     {
         IsVisible = false;
         StateHasChanged();
