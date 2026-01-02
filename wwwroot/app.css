@@ -214,6 +214,10 @@ h1:focus {
     background-color: #08682a;
 }
 
+.title{
+    width:100%;
+    padding-inline:10vw;
+}
 
 
 .invisible {
