@@ -103,11 +103,12 @@ h1:focus {
     }
 }
 
-.top-container{
+.top-container {
     flex: 1;
     position: relative;
     display: flex;
     flex-direction: column;
+    background-color: #232330;
     height: 100vh;
 }
 
@@ -212,6 +213,7 @@ h1:focus {
     height: 40vh;
     background-color: #08682a;
 }
+
 
 
 .invisible {
