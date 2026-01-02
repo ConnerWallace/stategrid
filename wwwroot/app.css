@@ -72,14 +72,35 @@ h1:focus {
     text-align: start;
 }
 
-.board {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    justify-content: center;
-    margin-right: auto;
-    margin-left: auto;
-    gap: 12px;
+
+@media screen and (min-width: 900px) {
+    .board {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: center;
+        margin-right: auto;
+        margin-left: auto;
+        gap: 12px;
+    }
+    :root {
+        --cell-width: 10vw;
+    }
+
+}
+@media screen and (max-width: 900px) {
+    .board {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        margin-right: auto;
+        margin-left: auto;
+        gap: 12px;
+    }
+    :root {
+        --cell-width: 15vw;
+    }
 }
 
 .top-container{
@@ -210,6 +231,4 @@ h1:focus {
     justify-content: center;
     align-items: center;
     z-index: 9999;
-}:root {
-    --cell-width: 10vw;
 }
