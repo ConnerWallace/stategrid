@@ -87,6 +87,7 @@ h1:focus {
     position: relative;
     display: flex;
     flex-direction: column;
+    height: 100vh;
 }
 
 .three-column-layout{
@@ -96,7 +97,7 @@ h1:focus {
     flex: 1;
 }
 .sidebar {
-    width: 350px;
+    width: 5vw;
     min-height: 500px;
     padding: .8rem;
     position: sticky;
@@ -112,7 +113,7 @@ h1:focus {
 .row {
     align-items: stretch;
     flex-direction:row;
-    height: var(--cell-width);
+    min-height: var(--cell-width);
 }
 .row:first-child {
 	height: -moz-max-content;
@@ -210,9 +211,5 @@ h1:focus {
     align-items: center;
     z-index: 9999;
 }:root {
-    --cell-width: 150px;
-    --cell-width-tablet: 120px;
-    --cell-width-mobile: 90px;
-    --cell-width-small-mobile: 80px;
-    --cell-width-minuscule-mobile: 70px;
+    --cell-width: 10vw;
 }
