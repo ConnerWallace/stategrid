@@ -93,13 +93,14 @@ h1:focus {
         display: flex;
         flex-direction: column;
         align-items: stretch;
-        justify-content: center;
+        justify-content: flex-start;
         margin-right: auto;
         margin-left: auto;
+        width:85%;
         gap: 12px;
     }
     :root {
-        --cell-width: 15vw;
+        --cell-width: 20vw;
     }
 }
 
@@ -119,9 +120,8 @@ h1:focus {
     flex: 1;
 }
 .sidebar {
-    width: 5vw;
+    width: 2vw;
     min-height: 500px;
-    padding: .8rem;
     position: sticky;
     top: 0;
 }
@@ -214,9 +214,11 @@ h1:focus {
     background-color: #08682a;
 }
 
-.title{
-    width:100%;
-    padding-inline:10vw;
+.title {
+    width: 100%;
+    padding-inline: 32vw;
+    padding-bottom: 25px;
+    padding-top: 25px;
 }
 
 
