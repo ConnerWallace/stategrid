@@ -109,13 +109,13 @@ h1:focus {
     position: relative;
     display: flex;
     flex-direction: column;
-    background-color: #232330;
+    background-color: #2a0204;
     height: 100vh;
 }
 
-.three-column-layout{
+.three-column-layout {
     display: flex;
-    background-color: #232330;
+    background-color: #2a0204;
     justify-content: center;
     flex: 1;
 }
@@ -149,7 +149,7 @@ h1:focus {
     align-items: center;
     color: #dfdfdf;
     font-size: 14px;
-    background-color: #4c4c67;
+    background-color: #723034;
     min-height: 60px;
     padding: 10px;
     box-sizing: border-box;
@@ -158,14 +158,14 @@ h1:focus {
     width: var(--cell-width);
 }
 
-.prompt:hover {
-    background-color: #4c67dc;
-}
+    .prompt:hover {
+        background-color: #b1474c;
+    }
 
 .box {
     width: var(--cell-width);
     height: 100%;
-    background-color: rgba(0,0,0,.2);
+    background-color: rgba(0,0,0,.3);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -177,6 +177,10 @@ h1:focus {
     box-sizing: border-box;
     padding: 6px;
 }
+
+    .box:hover {
+        background-color: rgba(54, 54, 54, 0.3)
+    }
 
 .modal-box {
     width: 45%;
