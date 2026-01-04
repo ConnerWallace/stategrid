@@ -33,7 +33,7 @@
 
     public void CopyToClipboard()
     {
-        JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", Text);
+        JSRuntime.InvokeVoidAsync("clipboardCopy.copyText", Text);
         _ = handleUI();
     }
 
