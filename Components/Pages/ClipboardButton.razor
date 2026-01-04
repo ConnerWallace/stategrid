@@ -1,8 +1,8 @@
 ﻿@using BlazorApp1.Services
-@inject ClipBoardService ClipboardService
+@inject IJSRuntime JSRuntime
 
 <button class="@buttonData.ButtonClass" disabled="@buttonData.IsDisabled"
-        onclick="CopyToClipboard">
+        @onclick="CopyToClipboard">
     <i class="@buttonData.FontAwesomeClass"></i> @buttonData.ButtonText
 </button>
 
@@ -35,7 +35,7 @@
         var originalData = buttonData;
         try
         {
-            await ClipboardService.WriteTextAsync(Text);
+            await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", Text);
 
             buttonData = new ButtonData(true, _copiedToClipboardText,
                                     _successButtonClass, _fontAwesomeCopiedClass);
