@@ -213,6 +213,9 @@ h1:focus {
     box-sizing: border-box;
     padding: 6px;
 }
+.modal-box-right a {
+    color:greenyellow
+}
 .modal-content {
     height: 40vh;
     background-color: #1b1385;
@@ -225,6 +228,11 @@ h1:focus {
     padding-top: 25px;
 }
 
+.modal-title{
+    color:greenyellow
+}
+
+.modal
 
 .invisible {
     width: var(--cell-width);
