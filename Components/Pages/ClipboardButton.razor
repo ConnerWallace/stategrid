@@ -35,7 +35,7 @@
         var originalData = buttonData;
         try
         {
-            await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", Text);
+            await JSRuntime.InvokeVoidAsync("clipboardCopy.copyText", Text);
 
             buttonData = new ButtonData(true, _copiedToClipboardText,
                                     _successButtonClass, _fontAwesomeCopiedClass);
