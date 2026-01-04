@@ -232,8 +232,6 @@ h1:focus {
     color:greenyellow
 }
 
-.modal
-
 .invisible {
     width: var(--cell-width);
 }
