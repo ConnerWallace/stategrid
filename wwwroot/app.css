@@ -191,7 +191,7 @@ h1:focus {
     align-items: center;
     color: #dfdfdf;
     cursor: pointer;
-    background-color: #1c9641;
+    background-color: #3a31b1;
     transition: background-color .25s;
     border-radius: 12px;
     box-sizing: border-box;
@@ -207,7 +207,7 @@ h1:focus {
     align-items: center;
     color: #dfdfdf;
     cursor: pointer;
-    background-color: #1c9641;
+    background-color: #3a31b1;
     transition: background-color .25s;
     border-radius: 12px;
     box-sizing: border-box;
@@ -215,7 +215,7 @@ h1:focus {
 }
 .modal-content {
     height: 40vh;
-    background-color: #08682a;
+    background-color: #1b1385;
 }
 
 .title {
