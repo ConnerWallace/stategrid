@@ -1,10 +1,12 @@
 ﻿@using BlazorApp1.Services
 @inject IJSRuntime JSRuntime
 
-<button class="@buttonData.ButtonClass" disabled="@buttonData.IsDisabled"
-        @onclick="CopyToClipboard">
-    <i class="@buttonData.FontAwesomeClass"></i> @buttonData.ButtonText
-</button>
+<div @onclick="handleUI">
+    <button class="@buttonData.ButtonClass" disabled="@buttonData.IsDisabled"
+            onclick='clipboardCopy.copyText("@Text")'>
+        <i class="@buttonData.FontAwesomeClass"></i> @buttonData.ButtonText
+    </button>
+</div>
 
 @code {
     private const string _successButtonClass = "btn btn-success";
