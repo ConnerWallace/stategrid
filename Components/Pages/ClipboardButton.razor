@@ -30,13 +30,18 @@
 
 
 
-    public async Task CopyToClipboard()
+
+    public void CopyToClipboard()
+    {
+        JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", Text);
+        _ = handleUI();
+    }
+
+    private async Task handleUI()
     {
         var originalData = buttonData;
         try
         {
-            await JSRuntime.InvokeVoidAsync("clipboardCopy.copyText", Text);
-
             buttonData = new ButtonData(true, _copiedToClipboardText,
                                     _successButtonClass, _fontAwesomeCopiedClass);
             await TriggerButtonState();
@@ -49,6 +54,7 @@
             await TriggerButtonState();
             buttonData = originalData;
         }
+        StateHasChanged();
     }
 
     private async Task TriggerButtonState()
