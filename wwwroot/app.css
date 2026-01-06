@@ -73,7 +73,7 @@ h1:focus {
 }
 
 
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 1200px) {
     .board {
         display: flex;
         flex-direction: row;
@@ -88,7 +88,7 @@ h1:focus {
     }
 
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1200px) {
     .board {
         display: flex;
         flex-direction: column;
@@ -182,36 +182,40 @@ h1:focus {
         background-color: rgba(54, 54, 54, 0.3)
     }
 
-.modal-box {
-    width: 45%;
-    height: 100%;
+.modal-body {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    color: #dfdfdf;
-    cursor: pointer;
-    background-color: #3a31b1;
-    transition: background-color .25s;
-    border-radius: 12px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    padding: 6px;
+    flex-direction: row;
+    background-color: #2a21b1;
 }
-.modal-box-right {
-    width: 45%;
-    height: 100%;
+
+.modal-box {
+    height: 40vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
     color: #dfdfdf;
-    cursor: pointer;
     background-color: #3a31b1;
     transition: background-color .25s;
     border-radius: 12px;
-    box-sizing: border-box;
+    overflow-y: auto;
+    padding-right: 5px;
+    flex-grow:0;
+    flex-shrink:0;
+    margin:1px;
+}
+    .modal-box ul {
+        cursor: pointer;
+    }
+.modal-box-right {
+    height: 100%;
     padding: 6px;
+    background-color: #3a31b1;
+    color: #dfdfdf;
+    transition: background-color .25s;
+    border-radius: 12px;
+    overflow-y: auto;
+    flex-grow:100;
+    margin-left:10px;
 }
     .modal-box-right a {
         color: #ffc965
