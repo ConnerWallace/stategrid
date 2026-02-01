@@ -1,6 +1,5 @@
 ﻿
 using Microsoft.Data.Sqlite;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace BlazorApp1.Components.DB
 {

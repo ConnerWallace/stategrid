@@ -58,11 +58,12 @@
     "State is part of X region", "State was part of the Louisiana Purchase", "Borders Gulf of Mexico","Site of Civil War battle", "Contains Top X Largest City","Has won the Super Bowl","X death penalty", "Contains Missouri River"
 };
 
-    public void show()
+    public void show(int index)
     {
         ModalDisplay = "block;";
         ModalClass = "Show";
         ShowBackdrop = true;
+        categoryNumber = index;
         StateHasChanged();
     }
 
