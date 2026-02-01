@@ -5,7 +5,7 @@ namespace BlazorApp1;
 
 public partial class Category
 {
-    public int Id { get; set; }
+    public int Id { get; set; } = 0;
 
     public string? Name { get; set; }
 
@@ -13,5 +13,5 @@ public partial class Category
 
     public string? Modifier { get; set; }
 
-    public string? Description { get; set; }
+    public int? Description { get; set; }
 }

@@ -1,10 +1,14 @@
 ﻿@page "/"
+@page "/game/{gameNumber:int}"
 @using BlazorApp1.Components.DB
 @using Microsoft.Data.Sqlite
 @using BlazorApp1.Components.UserData
 @rendermode InteractiveServer
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@inject ProtectedLocalStorage storage
+@inject NavigationManager Navigation
 
-@if (Categories == null)
+@if (Categories[0] == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -27,19 +31,19 @@ else
                 <div class="panel">
                     <div class="row">
                         <div class="invisible"></div>
-                        <div class="prompt column-prompt" @onclick="() => showDes()">
+                        <div class="prompt column-prompt" @onclick="() => showDes(0)">
                             <CategoryContainer CategoryTitle="@Categories[0].Name" />
                         </div>
-                        <div class="prompt column-prompt" @onclick="() => showDes()">
+                        <div class="prompt column-prompt" @onclick="() => showDes(1)">
                             <CategoryContainer CategoryTitle="@Categories[1].Name" />
                         </div>
-                        <div class="prompt column-prompt" @onclick="() => showDes()">
+                        <div class="prompt column-prompt" @onclick="() => showDes(2)">
                             <CategoryContainer CategoryTitle="@Categories[2].Name" />
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="prompt row-prompt" @onclick="() => showDes()">
+                        <div class="prompt row-prompt" @onclick="() => showDes(3)">
                             <CategoryContainer CategoryTitle="@Categories[3].Name" />
                         </div>
                         <div class="box" @onclick="() => setValue(0)"> <AnswerContainer stateParam="@answers[0]" rarity="@rarities[0]" /></div>
@@ -48,7 +52,7 @@ else
 
                     </div>
                     <div class="row">
-                        <div class="prompt row-prompt" @onclick="() => showDes()">
+                        <div class="prompt row-prompt" @onclick="() => showDes(4)">
                             <CategoryContainer CategoryTitle="@Categories[4].Name" />
                             </div>
                         <div class="box" @onclick="() => setValue(3)"> <AnswerContainer stateParam="@answers[3]" rarity="@rarities[3]" /></div>
@@ -56,7 +60,7 @@ else
                         <div class="box" @onclick="() => setValue(5)"> <AnswerContainer stateParam="@answers[5]" rarity="@rarities[5]" /></div>
                     </div>
                         <div class="row">
-                        <div class="prompt row-prompt" @onclick="() => showDes()">
+                        <div class="prompt row-prompt" @onclick="() => showDes(5)">
                             <CategoryContainer CategoryTitle="@Categories[5].Name" />
                         </div>
                         <div class="box" @onclick="() => setValue(6)"> <AnswerContainer stateParam="@answers[6]" rarity="@rarities[6]" /></div>
@@ -67,12 +71,24 @@ else
 
                 <div class="column">
                     <div class="card column-item">
-                        game number: @gameNumber
+                        Game Number: @gameNumber
                     </div>
                     <div class="card column-item">
                         Score: @score
                     </div>
+                    <div class="card column-item">
+                        Guesses Remaining: @guessesLeft
+                    </div>
+                    <!--
+                    <div class="card column-item">
+                        <button >Give Up</button>
+                    </div>
+                    -->
                     <div class="card column-item"> <ClipboardButton Text="@forClipboard"></ClipboardButton> </div>
+                    <div class="card column-item">
+                        <button Color="ButtonColor.Primary" @onclick='() => Navigation.NavigateTo("/game/" + (gameNumber - 1))'>&lt;</button>
+                        <button Color="ButtonColor.Primary" disabled="@isDisabled" @onclick='() => Navigation.NavigateTo(" /game/" + (gameNumber + 1))'>&gt;</button>
+                    </div>
                 </div>
             </div>
             <div class="sidebar"></div>
@@ -87,17 +103,55 @@ else
     private string[] answers = new string[9];
     private double[] rarities = new double[] { 100, 100 ,100,  100, 100, 100,  100, 100, 100};
     private List<List<string>> categoriesCorrectAnswers = new List<List<string>>();
-    private int gameNumber = (int)(DateTime.Now - DateTime.Parse("11/13/2025")).TotalDays; //Loses a day for some reason
+
+    [Parameter]
+    public int? gameNumber { get; set; } 
+
     private List<string> allStates = new List<string>();
     private bool win = false;
     private StateinfoContext dB = new StateinfoContext();
     private UserDataContext userDataContext = new UserDataContext();
     private TestDbContext dbButBad = new TestDbContext();
     private double score = 900;
+    private int guessesLeft = 10;
     private string forClipboard = "";
+    private bool isDisabled = false;
 
-    public Home()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        if (firstRender)
+        {
+            await loadGameState();
+            StateHasChanged();
+        }
+    }
+
+    private async Task loadGameState()
+    {
+        var todaysGameNumber = (int)(DateTime.Now - DateTime.Parse("11/13/2025")).TotalDays;
+        if (gameNumber == null)
+        {
+            gameNumber = todaysGameNumber; //Loses a day for some reason
+        } else
+        {
+            if (gameNumber > todaysGameNumber)
+            {
+                Navigation.NavigateTo("/not-found");
+                return;
+            }
+
+        }
+        if (gameNumber == todaysGameNumber)
+        {
+            isDisabled = true;
+        }
+
+        var result = await storage.GetAsync<string []>("game" + gameNumber);
+        answers = result.Success ? result.Value : new string [9];
+
+        var guesses = await storage.GetAsync<int>("guesses" + gameNumber);
+        guessesLeft = guesses.Success ? guesses.Value : 10;
+
         Game todaysGame = dB.Games.Single(b => b.Id == gameNumber);
         Categories[0] = dB.Categories.Single(c => c.Id == todaysGame.Cat1);
         Categories[1] = dB.Categories.Single(c => c.Id == todaysGame.Cat2);
@@ -138,7 +192,7 @@ else
 
     private void onSubmit((int index, string input) a)
     {
-
+        if (guessesLeft == 0 ) return;
 
         var (x, y) = xyFromIndex(a.index);
         var answer = a.input;
@@ -178,14 +232,18 @@ else
 
             score = rarities.Sum();
             answers[a.index] = categoriesCorrectAnswers[x].FirstOrDefault(t => string.Equals(answer,t, StringComparison.InvariantCultureIgnoreCase))!;
+
+            _ = storage.SetAsync("game" + gameNumber, answers);
         }
 
+        guessesLeft--;
+        storage.SetAsync("guesses" + gameNumber, guessesLeft);
         emojify();
     }
 
-    public void showDes()
+    public void showDes(int index)
     {
-        descRef.show();
+        descRef.show(Categories[index].Description ?? 0);
         popupRef.Close();
     }
 
