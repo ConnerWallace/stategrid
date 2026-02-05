@@ -233,7 +233,7 @@ else
             return;
         }
 
-        var OldAnswerLocation = Array.FindIndex<string>(answers, 0, 8, x => string.Equals(x, answer, StringComparison.OrdinalIgnoreCase));
+        var OldAnswerLocation = Array.FindIndex<string>(answers, 0, 9, x => string.Equals(x, answer, StringComparison.OrdinalIgnoreCase));
 
         if (categoriesCorrectAnswers[x].Contains(answer, StringComparer.OrdinalIgnoreCase)
         && categoriesCorrectAnswers[y].Contains(answer, StringComparer.OrdinalIgnoreCase)     
