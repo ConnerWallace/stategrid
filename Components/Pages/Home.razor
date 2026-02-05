@@ -77,7 +77,7 @@ else
                         Score: @score
                     </div>
                     <div class="card column-item">
-                        Guesses Remaining: @guessesLeft
+                        Guesses Remaining: @if (infiniteGuesses){ <b>&infin;</b>} else{ @guessesLeft }
                     </div>
                     <!--
                     <div class="card column-item">
@@ -86,8 +86,13 @@ else
                     -->
                     <div class="card column-item"> <ClipboardButton Text="@forClipboard"></ClipboardButton> </div>
                     <div class="card column-item">
+                        Archive
                         <button Color="ButtonColor.Primary" @onclick='() => Navigation.NavigateTo("/game/" + (gameNumber - 1))'>&lt;</button>
                         <button Color="ButtonColor.Primary" disabled="@isDisabled" @onclick='() => Navigation.NavigateTo(" /game/" + (gameNumber + 1))'>&gt;</button>
+                    </div>
+                    <div class="form-check form-switch card">
+                    <input class="form-check-input" disabled="@UsedInfinite" @onclick="() => infiniteGuesses = !infiniteGuesses" type="checkbox" role="switch" id="flexSwitchCheckChecked">
+                      <label class="form-check-label" for="flexSwitchCheckChecked">Infinite Guesses Mode</label>
                     </div>
                 </div>
             </div>
@@ -116,6 +121,8 @@ else
     private int guessesLeft = 10;
     private string forClipboard = "";
     private bool isDisabled = false;
+    private bool infiniteGuesses = false;
+    private bool UsedInfinite = false;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -180,6 +187,23 @@ else
 
         allStates.AddRange(dbButBad.query("Select name from States"));
 
+
+        for(int i=0; i<9; i++)
+        {
+            if (answers![i] == null || answers[i] == "")
+            {
+                continue;
+            }
+            var listOfSubmittedAnswers = userDataContext.Answers.Where(c => c.Game == gameNumber && c.AnswerSlot == i).ToList();
+            var currentAnswer = listOfSubmittedAnswers.Find(a => a.StateName.Equals(answers[i], StringComparison.InvariantCultureIgnoreCase));
+            int sum = 0;
+            foreach (Answer answer1 in listOfSubmittedAnswers)
+            {
+                sum += answer1.NumberOfGuesses.GetValueOrDefault(0);
+            }
+            rarities[i] = (currentAnswer?.NumberOfGuesses.GetValueOrDefault(0) ?? (double)sum) / (double)sum * 100.0;
+        }
+
         emojify();
     }
 
@@ -192,16 +216,37 @@ else
 
     private void onSubmit((int index, string input) a)
     {
-        if (guessesLeft == 0 ) return;
+        if (infiniteGuesses)
+        {
+            guessesLeft = 999;
+            UsedInfinite = true;
+        }
+
+        if (guessesLeft == 0) return;
 
         var (x, y) = xyFromIndex(a.index);
         var answer = a.input;
 
+        if (!allStates.Contains(answer, StringComparer.OrdinalIgnoreCase))
+        {
+            //TODO add a visual for this
+            return;
+        }
+
+        var OldAnswerLocation = Array.FindIndex<string>(answers, 0, 8, x => string.Equals(x, answer, StringComparison.OrdinalIgnoreCase));
+
         if (categoriesCorrectAnswers[x].Contains(answer, StringComparer.OrdinalIgnoreCase)
-        && categoriesCorrectAnswers[y].Contains(answer, StringComparer.OrdinalIgnoreCase)
-        && !answers.Contains(answer)
+        && categoriesCorrectAnswers[y].Contains(answer, StringComparer.OrdinalIgnoreCase)     
         )
         {
+            if(OldAnswerLocation != -1)
+            {
+                answers[OldAnswerLocation] = null;
+                rarities[OldAnswerLocation] = 100;
+                guessesLeft ++;
+            }
+
+
             var listOfSubmittedAnswers = userDataContext.Answers.Where(c => c.Game == gameNumber && c.AnswerSlot == a.index).ToList();
 
             var currentAnswer = listOfSubmittedAnswers.Find(a => a.StateName.Equals(answer, StringComparison.InvariantCultureIgnoreCase));
