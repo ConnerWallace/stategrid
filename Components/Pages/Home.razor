@@ -74,7 +74,7 @@ else
                         Game Number: @gameNumber
                     </div>
                     <div class="card column-item">
-                        Score: @score
+                        Score: @String.Format("{0:0.00}", score)
                     </div>
                     <div class="card column-item">
                         Guesses Remaining: @if (infiniteGuesses){ <b>&infin;</b>} else{ @guessesLeft }
