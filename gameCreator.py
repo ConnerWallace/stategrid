@@ -91,6 +91,12 @@ while True:
     if(any("Capital s" in x for x in names) and random.randint(1,4) < 3):
         #print("rejecting list cause it has Capital ends with")
         continue
+    if( len(list(filter(lambda y: "Flag" in y, names))) > 3):
+        #rejects all 4 or more flag grids
+        continue
+    if( len(list(filter(lambda y: "Flag" in y, names))) > 3 and (random.randint(1,4) < 4)):
+        #rejects 75% of 3 flag grids
+        continue
 
     
     if not (allUnique(mods1) and allUnique(mods2)) :
