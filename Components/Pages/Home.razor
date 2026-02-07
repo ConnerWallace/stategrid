@@ -77,7 +77,7 @@ else
                         Score: @String.Format("{0:0.00}", score)
                     </div>
                     <div class="card column-item">
-                        Guesses Remaining: @if (infiniteGuesses){ <b>&infin;</b>} else{ @guessesLeft }
+                        Guesses Remaining: @if (infiniteGuesses){<i>&infin;</i>} else{ @guessesLeft }
                     </div>
                     <!--
                     <div class="card column-item">
@@ -90,9 +90,11 @@ else
                         <button Color="ButtonColor.Primary" @onclick='() => Navigation.NavigateTo("/game/" + (gameNumber - 1))'>&lt;</button>
                         <button Color="ButtonColor.Primary" disabled="@isDisabled" @onclick='() => Navigation.NavigateTo(" /game/" + (gameNumber + 1))'>&gt;</button>
                     </div>
-                    <div class="form-check form-switch card">
-                    <input class="form-check-input" disabled="@UsedInfinite" @onclick="() => infiniteGuesses = !infiniteGuesses" type="checkbox" role="switch" id="flexSwitchCheckChecked">
-                      <label class="form-check-label" for="flexSwitchCheckChecked">Infinite Guesses Mode</label>
+                    <div class="card">
+                        <div class="form-check form-switch">
+                        <input class="form-check-input" disabled="@UsedInfinite" @onclick="() => infiniteGuesses = !infiniteGuesses" type="checkbox" role="switch" id="flexSwitchCheckChecked">
+                          <label class="form-check-label" for="flexSwitchCheckChecked">Infinite Guesses Mode</label>
+                        </div>
                     </div>
                 </div>
             </div>

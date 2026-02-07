@@ -242,6 +242,9 @@ h1:focus {
 .column-item{
     padding: 8px;
 }
+.card {
+    text-align: center
+}
 .modal-bg{
     position: fixed;
     top: 0;

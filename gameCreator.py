@@ -1,6 +1,7 @@
 import sqlite3
 import random
 
+
 def allUnique(x):
      seen = set()
      return not any(i in seen or seen.add(i) for i in x)
@@ -59,16 +60,40 @@ while True:
     allAnswers = []
 
     mods = []
+    names = []
     for category in categories:
         #print(category)
         listOfStates = cursor.execute(str(category[2])).fetchall()
         states = list(map( lambda x: x[0], listOfStates))
         mods.append(category[3])
+        names.append(category[1])
         allAnswers.append(states)
+        
 
-    mods = [item for item in mods if item is not None]
+    mods1 = mods[0:3]
+    mods2 = mods[3:6]
+    mods1 = [item for item in mods1 if item is not None]
+    mods2 = [item for item in mods2 if item is not None]
+
+
+    if(any("Largest City s" in x for x in names) and random.randint(1,4) < 4):
+        #print("rejecting list cause it has Largest City starts with")
+        continue
     
-    if not allUnique(mods):
+    if(any("Largest City e" in x for x in names) and random.randint(1,4) < 4):
+        #print("rejecting list cause it has Largest City ends")
+        continue
+
+    if(any("Capital e" in x for x in names) and random.randint(1,4) < 3):
+        #print("rejecting list cause it has Capital starts with")
+        continue
+    
+    if(any("Capital s" in x for x in names) and random.randint(1,4) < 3):
+        #print("rejecting list cause it has Capital ends with")
+        continue
+
+    
+    if not (allUnique(mods1) and allUnique(mods2)) :
         continue
 
     if CheckIfSolvable(allAnswers):
