@@ -6,6 +6,14 @@ a, .btn-link {
     color: #006bb7;
 }
 
+.btn-info {
+    --bs-btn-bg: #ffc965;
+    --bs-btn-border-color: #ae8840;
+    --bs-btn-hover-bg: #ae8840;
+    --bs-btn-hover-border-color: #916c26;
+    --bs-btn-active-bg: #fce3b4
+}
+
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;
@@ -13,7 +21,14 @@ a, .btn-link {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+
+.form-check-input {
+    --bs-form-check-bg: #ffc965;
+    --bs-btn-border-color: #ae8840;
+    border: #ae8840;
 }
 
 .content {
@@ -253,7 +268,9 @@ h1:focus {
     padding: 8px;
 }
 .card {
-    text-align: center
+    text-align: center;
+    color: #fff;
+    background-color: #8d4a4e;
 }
 .modal-bg{
     position: fixed;
