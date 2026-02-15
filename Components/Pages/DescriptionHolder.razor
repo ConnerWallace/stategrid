@@ -1,4 +1,4 @@
-﻿@if(categoryNumber == 0)
+﻿k@if(categoryNumber == 0)
 {
     <b>State starts/ends with X</b>
     <p>
@@ -10,7 +10,7 @@
 else if(categoryNumber == 1)
 {
 
-    <b>State name is X letters</b>
+    <b>Name is X letters</b>
 
     <p>States for which their name is a given number of letters long. The state names count as they appear in the game. Non-letter characters such as spaces and punctuation do NOT count toward the length of a state’s name.</p>
 
@@ -19,7 +19,7 @@ else if(categoryNumber == 1)
 else if(categoryNumber == 2)
 {
 
-    <b>State name is multiple words</b>
+    <b>Name is multiple words</b>
 
     <p>States for which their name is broken into multiple words. The state names count as they appear in the game.</p>
 
@@ -173,9 +173,11 @@ else if(categoryNumber == 14)
 else if(categoryNumber == 15)
 {
 
-    <b>State is part of X region</b>
+    <b>Part of the X region</b>
 
     <p>States which are part of a given region, according to the United States Census Bureau. Official Census Bureau divisions may differ from specific regional or individual categorizations.</p>
+
+    <p>Each state is a part of one of the four regions. The regions are as follows: Northeast, South, Midwest, and West.</p>
 
     <p>Territories are not included as part of any region, but the District of Columbia is.</p>
 
@@ -186,13 +188,24 @@ else if(categoryNumber == 15)
 else if(categoryNumber == 16)
 {
 
+    <b>Part of New England</b>
+
+    <p>Whether or not a state is part of New England, according to the United States Census Bureau. Official Census Bureau divisions may differ from specific regional or individual categorizations.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/United_States_Census_Bureau#Census_regions_and_divisions">United States Census Bureau</a></p>
+
+}
+
+else if(categoryNumber == 17)
+{
+
     <b>Is a U.S. territory</b>
 
     <p>Whether or not the given polity is a U.S. territory.</p>
 
 }
 
-else if(categoryNumber == 17)
+else if(categoryNumber == 18)
 {
 
     <b>Borders X states</b>
@@ -203,7 +216,7 @@ else if(categoryNumber == 17)
 
 }
 
-else if(categoryNumber == 18)
+else if(categoryNumber == 19)
 {
     <b>Has international border</b>
 
@@ -213,7 +226,7 @@ else if(categoryNumber == 18)
 
 }
 
-else if(categoryNumber == 19)
+else if(categoryNumber == 20)
 {
     <b>Borders Canada</b>
 
@@ -223,7 +236,7 @@ else if(categoryNumber == 19)
 
 }
 
-else if(categoryNumber == 20)
+else if(categoryNumber == 21)
 {
     <b>Borders Mexico</b>
 
@@ -233,25 +246,25 @@ else if(categoryNumber == 20)
 
 }
 
-else if(categoryNumber == 21)
+else if(categoryNumber == 22)
 {
 
-    <b>Is landlocked</b>
+    <b>Landlocked</b>
 
     <p>States which do not have a coast on the ocean. Having a coast on a Great Lake does NOT count as ocean.</p>
 
 }
 
-else if(categoryNumber == 22)
+else if(categoryNumber == 23)
 {
 
-    <b>Is an island</b>
+    <b>Islands only</b>
 
     <p>Whether or not the given polity consists entirely of islands.</p>
 
 }
 
-else if(categoryNumber == 23)
+else if(categoryNumber == 24)
 {
 
     <b>Has ocean coast</b>
@@ -260,7 +273,7 @@ else if(categoryNumber == 23)
 
 }
 
-else if(categoryNumber == 24)
+else if(categoryNumber == 25)
 {
 
     <b>Has Atlantic Ocean coast</b>
@@ -269,7 +282,7 @@ else if(categoryNumber == 24)
 
 }
 
-else if(categoryNumber == 25)
+else if(categoryNumber == 26)
 {
 
     <b>Has Gulf of Mexico coast</b>
@@ -280,7 +293,7 @@ else if(categoryNumber == 25)
 
 }
 
-else if(categoryNumber == 26)
+else if(categoryNumber == 27)
 {
 
     <b>Has Pacific Ocean coast</b>
@@ -289,7 +302,7 @@ else if(categoryNumber == 26)
 
 }
 
-else if(categoryNumber == 27)
+else if(categoryNumber == 28)
 {
     <b>Borders a Great Lake</b>
 
@@ -299,7 +312,7 @@ else if(categoryNumber == 27)
 
 }
 
-else if(categoryNumber == 28)
+else if(categoryNumber == 29)
 {
 
     <b>Contains Mississippi River</b>
@@ -310,7 +323,7 @@ else if(categoryNumber == 28)
 
 }
 
-else if(categoryNumber == 29)
+else if(categoryNumber == 30)
 {
 
     <b>Contains Missouri River</b>
@@ -321,7 +334,7 @@ else if(categoryNumber == 29)
 
 }
 
-else if(categoryNumber == 30)
+else if(categoryNumber == 31)
 {
 
     <b>Contains Appalachian Mountains</b>
@@ -332,7 +345,7 @@ else if(categoryNumber == 30)
 
 }
 
-else if(categoryNumber == 31)
+else if(categoryNumber == 32)
 {
 
     <b>Contains Rocky Mountains</b>
@@ -343,7 +356,7 @@ else if(categoryNumber == 31)
 
 }
 
-else if(categoryNumber == 32)
+else if(categoryNumber == 33)
 {
 
     <b>Has X timezones</b>
@@ -354,7 +367,7 @@ else if(categoryNumber == 32)
 
 }
 
-else if(categoryNumber == 33)
+else if(categoryNumber == 34)
 {
     <b>Admitted to the Union before/after X year</b>
 
@@ -364,7 +377,7 @@ else if(categoryNumber == 33)
 
 }
 
-else if(categoryNumber == 34)
+else if(categoryNumber == 35)
 {
     <b>Among the first/last X states admitted to the Union</b>
 
@@ -376,7 +389,7 @@ else if(categoryNumber == 34)
 
 }
 
-else if(categoryNumber == 35)
+else if(categoryNumber == 36)
 {
 
     <b>Was one of the Thirteen Colonies</b>
@@ -389,7 +402,7 @@ else if(categoryNumber == 35)
 
 }
 
-else if(categoryNumber == 36)
+else if(categoryNumber == 37)
 {
 
     <b>Is the birthplace of a U.S. president</b>
@@ -402,10 +415,10 @@ else if(categoryNumber == 36)
 
 }
 
-else if(categoryNumber == 37)
+else if(categoryNumber == 38)
 {
 
-    <b>State was part of the Louisiana Purchase</b>
+    <b>Was part of the Louisiana Purchase</b>
 
     <p>States for which their territory, either in part or in whole, was part of the Louisiana Purchase.</p>
 
@@ -413,7 +426,7 @@ else if(categoryNumber == 37)
 
 }
 
-else if(categoryNumber == 38)
+else if(categoryNumber == 39)
 {
 
     <b>Voted for Abraham Lincoln</b>
@@ -424,7 +437,7 @@ else if(categoryNumber == 38)
 
 }
 
-else if(categoryNumber == 39)
+else if(categoryNumber == 40)
 {
 
     <b>Site of Civil War battle</b>
@@ -437,7 +450,7 @@ else if(categoryNumber == 39)
 
 }
 
-else if(categoryNumber == 40)
+else if(categoryNumber == 41)
 {
 
     <b>Has ever had a Woman Governor</b>
@@ -450,7 +463,7 @@ else if(categoryNumber == 40)
 
 }
 
-else if(categoryNumber == 41)
+else if(categoryNumber == 42)
 {
 
     <b>Current Governor is X party</b>
@@ -463,7 +476,7 @@ else if(categoryNumber == 41)
 
 }
 
-else if(categoryNumber == 42)
+else if(categoryNumber == 43)
 {
 
     <b>Has X number of congressional districts</b>
@@ -474,7 +487,7 @@ else if(categoryNumber == 42)
 
 }
 
-else if(categoryNumber == 43)
+else if(categoryNumber == 44)
 {
 
     <b>Has X number of electoral votes</b>
@@ -485,7 +498,7 @@ else if(categoryNumber == 43)
 
 }
 
-else if(categoryNumber == 44)
+else if (categoryNumber == 45)
 {
 
     <b>X death penalty</b>
@@ -502,7 +515,7 @@ else if(categoryNumber == 44)
 
 }
 
-else if(categoryNumber == 45)
+else if(categoryNumber == 46)
 {
 
     <b>Has hosted the Super Bowl</b>
@@ -513,7 +526,7 @@ else if(categoryNumber == 45)
 
 }
 
-else if(categoryNumber == 46)
+else if(categoryNumber == 47)
 {
 
     <b>Has played in the Super Bowl</b>
@@ -524,7 +537,7 @@ else if(categoryNumber == 46)
 
 }
 
-else if(categoryNumber == 47)
+else if(categoryNumber == 48)
 {
 
     <b>Has won the Super Bowl</b>
@@ -535,7 +548,18 @@ else if(categoryNumber == 47)
 
 }
 
-else if(categoryNumber == 48)
+else if (categoryNumber == 49)
+{
+
+    <b>Has won the World Series</b>
+
+    <p>States which have a baseball team that has won a World Series. Teams are counted as 'belonging' to a state based on what state their name refers to.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/List_of_World_Series_champions">List of World Series champions</a></p>
+
+}
+
+else if(categoryNumber == 50)
 {
 
     <b>Has hosted the Olympics</b>
@@ -546,7 +570,7 @@ else if(categoryNumber == 48)
 
 }
 
-else if(categoryNumber == 49)
+else if(categoryNumber == 51)
 {
 
     <b>Flag contains/does NOT contain X color</b>
@@ -557,7 +581,7 @@ else if(categoryNumber == 49)
 
 }
 
-else if(categoryNumber == 50)
+else if(categoryNumber == 52)
 {
 
     <b>Flag has X number of colors</b>
@@ -570,7 +594,7 @@ else if(categoryNumber == 50)
 
 }
 
-else if(categoryNumber == 51)
+else if(categoryNumber == 53)
 {
 
     <b>Flag contains/does NOT contain a Star/Sun</b>
@@ -579,7 +603,7 @@ else if(categoryNumber == 51)
 
 }
 
-else if(categoryNumber == 52)
+else if(categoryNumber == 54)
 {
 
     <b>Flag contains/does NOT contain a Human</b>
@@ -588,7 +612,7 @@ else if(categoryNumber == 52)
 
 }
 
-else if(categoryNumber == 53)
+else if(categoryNumber == 55)
 {
 
     <b>Flag contains/does NOT contain an Animal</b>
@@ -597,7 +621,7 @@ else if(categoryNumber == 53)
 
 }
 
-else if(categoryNumber == 54)
+else if(categoryNumber == 56)
 {
 
     <b>Flag contains/does NOT contain an Eagle</b>
@@ -606,7 +630,7 @@ else if(categoryNumber == 54)
 
 }
 
-else if(categoryNumber == 55)
+else if(categoryNumber == 57)
 {
 
     <b>Flag contains/does NOT contain a Coat of Arms</b>
@@ -615,7 +639,7 @@ else if(categoryNumber == 55)
 
 }
 
-else if(categoryNumber == 56)
+else if(categoryNumber == 58)
 {
 
     <b>Flag contains/does NOT contain Text</b>
@@ -625,7 +649,7 @@ else if(categoryNumber == 56)
 }
 
 
-else if(categoryNumber == 57)
+else if(categoryNumber == 59)
 {
 
     <b>Flag has/does NOT have a Blue Background</b>
@@ -634,7 +658,7 @@ else if(categoryNumber == 57)
 
 }
 
-else if (categoryNumber == 58)
+else if (categoryNumber == 60)
 {
 
     <b>X number of National Historic Landmarks</b>
@@ -645,7 +669,7 @@ else if (categoryNumber == 58)
 
 }
 
-else if (categoryNumber == 59)
+else if (categoryNumber == 61)
 {
 
     <b>X national parks</b>
@@ -658,7 +682,7 @@ else if (categoryNumber == 59)
 
 }
 
-else if(categoryNumber == 60)
+else if(categoryNumber == 62)
 {
 
     <b>Hosts an Ivy League university</b>
@@ -669,11 +693,13 @@ else if(categoryNumber == 60)
 
 }
 
-else if(categoryNumber == 61)
+else if(categoryNumber == 63)
 {
     <b>Tallest Building greater/less than X feet</b>
 
     <p>States for which their tallest building is above or below a given value in FEET.</p>
+
+    <p>The list of buildings only includes buildings with practical purposes, NOT monuments or other ceremonial buildings.</p>
 
     <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/List_of_tallest_buildings_by_U.S._state_and_territory">List of tallest buildings by U.S. state and territory</a></p>
 
@@ -681,7 +707,18 @@ else if(categoryNumber == 61)
 
 }
 
-else if(categoryNumber == 62)
+else if (categoryNumber == 64)
+{
+
+    <b>Top X in Amish population</b>
+
+    <p>States which have the most amount of Amish residents. The ranking is based on TOTAL number of Amish residents in a state, NOT the percentage of the state's total population.</p>
+
+    <p>Wikipedia source: <a href="https://en.wikipedia.org/wiki/List_of_U.S._states_by_Amish_population">List of U.S. states by Amish population</a></p>
+
+}
+
+else if(categoryNumber == 65)
 {
 
     <b>Has locality named "Springfield"</b>
