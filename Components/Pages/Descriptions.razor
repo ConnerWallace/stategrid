@@ -7,8 +7,8 @@
             </div>
             <div class="modal-body">
                 <div class="modal-box">
-                    @foreach (var d in descriptions){
-                        <ul @onclick="() => categoryNumber=descriptions.IndexOf(d)">@d</ul>
+                    @foreach (var d in descriptions.Keys){
+                        <ul @onclick="() => categoryNumber=descriptions.GetValueOrDefault(d)">@d</ul>
                     }
                 </div>
                 <div class="modal-box-right">
@@ -35,74 +35,12 @@
     public string ModalClass = "";
     public bool ShowBackdrop = false;
     private int categoryNumber;
-    private List<string> descriptions = new List<string> { 
-    "State starts/ends with X",
-    "Name is X letters",
-    "Name is multiple words",
-    "Capital starts/ends with X",
-    "Capital is largest city",
-    "Largest City starts/ends with X",
-    "Name is of X origin",
-    "State Population over/under X",
-    "Capital Population over/under X",
-    "Largest City Population over/under X",
-    "Top/Bottom X in Population Density",
-    "Contains Top X Largest City",
-    "GDP per capita greater/less than $X",
-    "Net X federal revenue",
-    "Land Area greater/less than X sq mi",
-    "Part of the X region",
-    "Part of New England",
-    "Is a U.S. territory",
-    "Borders X states",
-    "Has international border",
-    "Borders Canada",
-    "Borders Mexico",
-    "Landlocked",
-    "Islands only",
-    "Has ocean coast",
-    "Has Atlantic Ocean coast",
-    "Has Gulf of Mexico coast",
-    "Has Pacific Ocean coast",
-    "Borders a Great Lake",
-    "Contains Mississippi River",
-    "Contains Missouri River",
-    "Contains Appalachian Mountains",
-    "Contains Rocky Mountains",
-    "Has X timezones",
-    "Admitted to the Union before/after X",
-    "Among the first/last X states admitted to the Union",
-    "Was one of the Thirteen Colonies",
-    "Is the birthplace of a U.S. president",
-    "Was part of the Louisiana Purchase",
-    "Voted for Abraham Lincoln",
-    "Site of Civil War battle",
-    "Has ever had a Woman Governor",
-    "Current Governor is X party",
-    "Has X number of congressional districts",
-    "Has X number of electoral votes",
-    "X death penalty",
-    "Has hosted the Super Bowl",
-    "Has played in the Super Bowl",
-    "Has won the Super Bowl",
-    "Has won the World Series",
-    "Has hosted the Olympics",
-    "Flag contains/does NOT contain X color",
-    "Flag has X number of colors",
-    "Flag contains/does NOT contain a Star/Sun",
-    "Flag contains/does NOT contain a Human",
-    "Flag contains/does NOT contain an Animal",
-    "Flag contains/does NOT contain an Eagle",
-    "Flag contains/does NOT contain a Coat of Arms",
-    "Flag contains/does NOT contain Text",
-    "Flag has/does NOT have a Blue Background",
-    "X number of National Historic Landmarks",
-    "X national parks",
-    "Hosts an Ivy League university",
-    "Tallest Building greater/less than X feet",
-    "Top X in Amish population",
-    "Has locality named 'Springfield'"
-};
+
+    //int is the description number for the db and the description holder
+    private Dictionary<string, int> descriptions = new Dictionary<string, int> { 
+        {"Name is X letters", 1},
+        {"State starts/ends with X", 0},
+    };
 
     public void show(int index)
     {
