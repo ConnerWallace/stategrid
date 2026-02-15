@@ -1,33 +1,41 @@
-﻿@using BlazorApp1.Components.DB
-@{
-    var showClass = IsVisible ? "d-block" : "d-none";
-}
+﻿
+@using BlazorApp1.Components.Pages
+<div class="modal modal-xl @ModalClass" tabindex="-1" role="dialog" style="display:@ModalDisplay">
+    <div class="modal-dialog" role="document" style="z-index:1055">
+        <div class="answerInput modal-content">
+            <div class="modal-header">
+                <strong class="me-auto">@cat1</strong>
+                <strong class="me-auto">@cat2</strong>
+                <button type="button" class="btn-close" aria-label="Close" @onclick="Close"></button>
+            </div>
+            <div class="modal-body2">
+                <input autocomplete="off" @ref="submitBox" type="search" name="name" @bind="input" @oninput="@(a => { onInput((string)a.Value); })" />
+                <input type="submit" name="submit" onclick="@Submit" />
 
-<div class="toast-container  p-3 @showClass" data-bs-autohide="true" data-bs-delay="0">
-    <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-            <strong class="me-auto">@cat1</strong>
-            <strong class="me-auto">@cat2</strong>
-            <button type="button" class="btn-close" aria-label="Close" @onclick="Close"></button>
-        </div>
-
-        <div class="toast-body">
-            <input autocomplete="off" @ref="submitBox" type="search" name="name" @bind="input" @oninput="@(a => { onInput((string)a.Value); })" />
-            <input type="submit" name="submit" onclick="@Submit" />
-        </div>
-        <div>
-            @foreach(var state in filteredStates)
-            {
-                <div class="popupCell" @onclick="@(t => {@setInput(state);})">
-                    <p>@state</p>
+                <div>
+                    @foreach (var state in filteredStates)
+                    {
+                        <div class="popupCell" @onclick="@(t => { @setInput(state); })">
+                            <p>@state</p>
+                        </div>
+                    }
                 </div>
-            }
+            </div>
         </div>
     </div>
+    @if (ShowBackdrop)
+    {
+        <div class="modal-backdrop fade show" data-dismiss="modal" @onclick="() => Close()"></div>
+    }
 </div>
 
 @code {
-    public bool IsVisible { get; set; }
+
+    public Guid Guid = Guid.NewGuid();
+    public string ModalDisplay = "none;";
+    public string ModalClass = "";
+    public bool ShowBackdrop = false;
+    private int categoryNumber;
 
     [Parameter]
     public EventCallback<(int, string)> IsVisibleChanged { get; set; }
@@ -43,12 +51,16 @@
     private List<string> filteredStates = new List<string>();
     private ElementReference submitBox;
 
+
+
     public void Show(int index, string cat1, string cat2)
     {
         this.index = index;
         this.cat1 = cat1;
         this.cat2 = cat2;
-        IsVisible = true;
+        ModalDisplay = "block;";
+        ModalClass = "Show";
+        ShowBackdrop = true;
         input = "";
         StateHasChanged();
         focusInput();
@@ -69,23 +81,32 @@
 
     private void onInput(string newInput)
     {
+
         if (states == null)
             states = new List<string>();
         input = newInput;
-        if(input.Length > 1)
+        //var modifiedInput = System.Text.RegularExpressions.Regex.Replace(newInput, "^A-Za-z", "");
+        //TODO strip characters in list for searching?
+        if (input.Length > 1)
             filteredStates = states.FindAll(a => a.Contains(input, StringComparison.InvariantCultureIgnoreCase));
+        else
+            filteredStates = new List<string>();
     }
 
     public void Close()
     {
-        IsVisible = false;
+        ModalDisplay = "none";
+        ModalClass = "";
+        ShowBackdrop = false;
         StateHasChanged();
     }
 
     private void Submit()
     {
-        IsVisibleChanged.InvokeAsync((index, input));
-        IsVisible = false;
+        ModalDisplay = "none";
+        ModalClass = "";
+        ShowBackdrop = false;
+        StateHasChanged();
         filteredStates = new List<string>();
         StateHasChanged();
     }
