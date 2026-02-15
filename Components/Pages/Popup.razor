@@ -106,7 +106,7 @@
         ModalDisplay = "none";
         ModalClass = "";
         ShowBackdrop = false;
-        StateHasChanged();
+        IsVisibleChanged.InvokeAsync((index, input));
         filteredStates = new List<string>();
         StateHasChanged();
     }
