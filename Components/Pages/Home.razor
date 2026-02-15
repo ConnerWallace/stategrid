@@ -300,7 +300,7 @@ else
         var text = scoreToEmoji(0) + scoreToEmoji(1) + scoreToEmoji(2) + "\\r\\n" +
                 scoreToEmoji(3) + scoreToEmoji(4) + scoreToEmoji(5) + "\\r\\n" +
                 scoreToEmoji(6) + scoreToEmoji(7) + scoreToEmoji(8) + "\\r\\n" +
-                "score: " + score + " | game #" + gameNumber + DateTime.Today.ToString();
+                "score: " + @String.Format("{0:0.00}", score) +" | game #" + gameNumber + DateTime.Today.ToString();
         if (infiniteGuesses == true)
         {
             text += text + " | ♾️";
