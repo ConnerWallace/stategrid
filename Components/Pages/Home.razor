@@ -107,7 +107,6 @@ else
     private Popup popupRef;
     private Descriptions descRef;
     private Category[] Categories = new Category[6];
-    private string[] answers = new string[9];
     private double[] rarities = new double[] { 100, 100 ,100,  100, 100, 100,  100, 100, 100};
     private List<List<string>> categoriesCorrectAnswers = new List<List<string>>();
 
@@ -120,11 +119,41 @@ else
     private UserDataContext userDataContext = new UserDataContext();
     private TestDbContext dbButBad = new TestDbContext();
     private double score = 900;
-    private int guessesLeft = 10;
     private string forClipboard = "";
     private bool isDisabled = false;
-    private bool infiniteGuesses = false;
-    private bool UsedInfinite = false;
+
+    private StoredData data = new StoredData();
+
+    private string[] answers {
+        get
+        {
+            return data.answers;
+        }
+    }
+
+    private bool infiniteGuesses
+    {
+        get
+        {
+            return data.infiniteGuesses;
+        }
+    }
+
+    private int guessesLeft
+    {
+        get
+        {
+            return data.guessesLeft;
+        }
+    }
+
+    private bool UsedInfinite
+    {
+        get
+        {
+            return data.UsedInfinite;
+        }
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -155,11 +184,8 @@ else
             isDisabled = true;
         }
 
-        var result = await storage.GetAsync<string []>("game" + gameNumber);
-        answers = result.Success ? result.Value : new string [9];
-
-        var guesses = await storage.GetAsync<int>("guesses" + gameNumber);
-        guessesLeft = guesses.Success ? guesses.Value : 10;
+        var result = await storage.GetAsync<StoredData>("board" + gameNumber);
+        data = result.Success ? result.Value : new StoredData();
 
         Game todaysGame = dB.Games.Single(b => b.Id == gameNumber);
         Categories[0] = dB.Categories.Single(c => c.Id == todaysGame.Cat1);
@@ -220,8 +246,8 @@ else
     {
         if (infiniteGuesses)
         {
-            guessesLeft = 999;
-            UsedInfinite = true;
+            data.guessesLeft = 999;
+            data.UsedInfinite = true;
         }
 
         if (guessesLeft == 0) return;
@@ -245,9 +271,10 @@ else
             {
                 answers[OldAnswerLocation] = null;
                 rarities[OldAnswerLocation] = 100;
-                guessesLeft ++;
+                data.guessesLeft++;
             }
 
+            var hasBeenSubmitted = hadBeenSubmitted(a.index, answer);
 
             var listOfSubmittedAnswers = userDataContext.Answers.Where(c => c.Game == gameNumber && c.AnswerSlot == a.index).ToList();
 
@@ -260,7 +287,8 @@ else
             if (currentAnswer != null)
             {
                 rarities[a.index] = currentAnswer.NumberOfGuesses.GetValueOrDefault(0) / (double)sum * 100.0;
-                currentAnswer.NumberOfGuesses += 1;
+                if(!hasBeenSubmitted) currentAnswer.NumberOfGuesses += 1;
+
 
             } else
             {
@@ -279,12 +307,10 @@ else
 
             score = rarities.Sum();
             answers[a.index] = categoriesCorrectAnswers[x].FirstOrDefault(t => string.Equals(answer,t, StringComparison.InvariantCultureIgnoreCase))!;
-
-            _ = storage.SetAsync("game" + gameNumber, answers);
         }
 
-        guessesLeft--;
-        storage.SetAsync("guesses" + gameNumber, guessesLeft);
+        data.guessesLeft--;
+        storage.SetAsync("board"+gameNumber, data);
         emojify();
     }
 
@@ -294,6 +320,15 @@ else
         popupRef.Close();
     }
 
+    public bool hadBeenSubmitted(int index, string answer)
+    {
+        var inList = data.AllGivenAnswers[index].Find(t => string.Equals(answer, t, StringComparison.InvariantCultureIgnoreCase)) != null;
+        if (!inList)
+        {
+            data.AllGivenAnswers[index].Add(answer);
+        }
+        return inList;
+    }
 
     public void emojify()
     {
