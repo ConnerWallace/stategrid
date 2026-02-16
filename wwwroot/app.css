@@ -88,51 +88,6 @@ h1:focus {
 }
 
 
-@media screen and (min-width: 1200px) {
-    .board {
-        display: flex;
-        flex-direction: row;
-        align-items: stretch;
-        justify-content: center;
-        margin-right: auto;
-        margin-left: auto;
-        gap: 12px;
-    }
-    :root {
-        --cell-width: 10vw;
-    }
-    .modal-body {
-        display: flex;
-        flex-direction: row;
-        background-color: #2a21b1;
-    }
-
-}
-@media screen and (max-width: 1200px) {
-    .board {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: flex-start;
-        margin-right: auto;
-        margin-left: auto;
-        width:85%;
-        gap: 12px;
-    }
-    :root {
-        --cell-width: 20vw;
-    }
-    .modal-body {
-        display: flex;
-        flex-direction: column;
-        background-color: #2a21b1;
-        max-height: 200%;
-    }
-    .modal-box{
-        padding:20px;
-    }
-}
-
 .top-container {
     flex: 1;
     position: relative;
@@ -272,6 +227,10 @@ h1:focus {
     color: #fff;
     background-color: #8d4a4e;
 }
+.howtoplay:hover {
+    background-color: darkslategrey;
+    cursor: pointer;
+}
 .modal-bg{
     position: fixed;
     top: 0;
@@ -288,4 +247,56 @@ h1:focus {
 .answerInput{
     color: white;
     background-color:darkslategrey
+}
+
+
+@media screen and (min-width: 1200px) {
+    .board {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: center;
+        margin-right: auto;
+        margin-left: auto;
+        gap: 12px;
+    }
+
+    :root {
+        --cell-width: 10vw;
+    }
+
+    .modal-body {
+        display: flex;
+        flex-direction: row;
+        background-color: #2a21b1;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .board {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        margin-right: auto;
+        margin-left: auto;
+        width: 85%;
+        gap: 12px;
+    }
+
+    :root {
+        --cell-width: 20vw;
+    }
+
+    .modal-body {
+        display: flex;
+        flex-direction: column;
+        background-color: #2a21b1;
+        max-height: 200%;
+    }
+
+    .modal-box-right {
+        margin-left:0px;
+        margin-top:10px;
+    }
 }

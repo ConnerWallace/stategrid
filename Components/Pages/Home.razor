@@ -14,98 +14,102 @@
 }
 else
 {
-    <CascadingValue Value=@this IsFixed=true>
-        <Popup @ref="popupRef" states="allStates" IsVisibleChanged="@(args=> onSubmit(args))" />
-    </CascadingValue>
-    <Descriptions @ref="descRef"> 
+<CascadingValue Value=@this IsFixed=true>
+    <Popup @ref="popupRef" states="allStates" IsVisibleChanged="@(args=> onSubmit(args))" />
+</CascadingValue>
+<Descriptions @ref="descRef"> 
+</Descriptions>
+<HowToPlayModal @ref="howToPlayRef"/>
 
-    </Descriptions>
-
-    <div class="top-container">
-        <div>
-            <img class="title" src="StateGriddleLogo.svg"/>
-        </div>
-        <div class="three-column-layout">
-            <div class="sidebar"></div>
-            <div class="board">
-                <div class="panel">
-                    <div class="row">
-                        <div class="invisible"></div>
-                        <div class="prompt column-prompt" @onclick="() => showDes(0)">
-                            <CategoryContainer CategoryTitle="@Categories[0].Name" />
-                        </div>
-                        <div class="prompt column-prompt" @onclick="() => showDes(1)">
-                            <CategoryContainer CategoryTitle="@Categories[1].Name" />
-                        </div>
-                        <div class="prompt column-prompt" @onclick="() => showDes(2)">
-                            <CategoryContainer CategoryTitle="@Categories[2].Name" />
-                        </div>
+<div class="top-container">
+    <div>
+        <img class="title" src="StateGriddleLogo.svg"/>
+    </div>
+    <div class="three-column-layout">
+        <div class="sidebar"></div>
+        <div class="board">
+            <div class="panel">
+                <div class="row">
+                    <div class="invisible"></div>
+                    <div class="prompt column-prompt" @onclick="() => showDes(0)">
+                        <CategoryContainer CategoryTitle="@Categories[0].Name" />
                     </div>
-
-                    <div class="row">
-                        <div class="prompt row-prompt" @onclick="() => showDes(3)">
-                            <CategoryContainer CategoryTitle="@Categories[3].Name" />
-                        </div>
-                        <div class="box" @onclick="() => setValue(0)"> <AnswerContainer stateParam="@answers[0]" rarity="@rarities[0]" /></div>
-                        <div class="box" @onclick="() => setValue(1)"> <AnswerContainer stateParam="@answers[1]" rarity="@rarities[1]" /></div>
-                        <div class="box" @onclick="() => setValue(2)"> <AnswerContainer stateParam="@answers[2]" rarity="@rarities[2]" /></div>
-
+                    <div class="prompt column-prompt" @onclick="() => showDes(1)">
+                        <CategoryContainer CategoryTitle="@Categories[1].Name" />
                     </div>
-                    <div class="row">
-                        <div class="prompt row-prompt" @onclick="() => showDes(4)">
-                            <CategoryContainer CategoryTitle="@Categories[4].Name" />
-                            </div>
-                        <div class="box" @onclick="() => setValue(3)"> <AnswerContainer stateParam="@answers[3]" rarity="@rarities[3]" /></div>
-                        <div class="box" @onclick="() => setValue(4)"> <AnswerContainer stateParam="@answers[4]" rarity="@rarities[4]" /></div>
-                        <div class="box" @onclick="() => setValue(5)"> <AnswerContainer stateParam="@answers[5]" rarity="@rarities[5]" /></div>
-                    </div>
-                        <div class="row">
-                        <div class="prompt row-prompt" @onclick="() => showDes(5)">
-                            <CategoryContainer CategoryTitle="@Categories[5].Name" />
-                        </div>
-                        <div class="box" @onclick="() => setValue(6)"> <AnswerContainer stateParam="@answers[6]" rarity="@rarities[6]" /></div>
-                        <div class="box" @onclick="() => setValue(7)"> <AnswerContainer stateParam="@answers[7]" rarity="@rarities[7]" /></div>
-                        <div class="box" @onclick="() => setValue(8)"> <AnswerContainer stateParam="@answers[8]" rarity="@rarities[8]" /></div>
+                    <div class="prompt column-prompt" @onclick="() => showDes(2)">
+                        <CategoryContainer CategoryTitle="@Categories[2].Name" />
                     </div>
                 </div>
 
-                <div class="column">
-                    <div class="card column-item">
-                        Game Number: @gameNumber
+                <div class="row">
+                    <div class="prompt row-prompt" @onclick="() => showDes(3)">
+                        <CategoryContainer CategoryTitle="@Categories[3].Name" />
                     </div>
-                    <div class="card column-item">
-                        Score: @String.Format("{0:0.00}", score)
-                    </div>
-                    <div class="card column-item">
-                        Guesses Remaining: @if (infiniteGuesses){<i>&infin;</i>} else{ @guessesLeft }
-                    </div>
-                    <!--
-                    <div class="card column-item">
-                        <button >Give Up</button>
-                    </div>
-                    -->
-                    <div class="card column-item"> <ClipboardButton Text="@forClipboard"></ClipboardButton> </div>
-                    <div class="card column-item">
-                        Archive
-                        <button Color="ButtonColor.Primary" @onclick='() => Navigation.NavigateTo("/game/" + (gameNumber - 1))'>&lt;</button>
-                        <button Color="ButtonColor.Primary" disabled="@isDisabled" @onclick='() => Navigation.NavigateTo(" /game/" + (gameNumber + 1))'>&gt;</button>
-                    </div>
-                    <div class="card">
-                        <div class="form-check form-switch">
-                        <input class="form-check-input" disabled="@UsedInfinite" @onclick="() => data.infiniteGuesses = !infiniteGuesses" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked="@infiniteGuesses">
-                          <label class="form-check-label" for="flexSwitchCheckChecked">Infinite Guess Mode</label>
+                    <div class="box" @onclick="() => setValue(0)"> <AnswerContainer stateParam="@answers[0]" rarity="@rarities[0]" /></div>
+                    <div class="box" @onclick="() => setValue(1)"> <AnswerContainer stateParam="@answers[1]" rarity="@rarities[1]" /></div>
+                    <div class="box" @onclick="() => setValue(2)"> <AnswerContainer stateParam="@answers[2]" rarity="@rarities[2]" /></div>
+
+                </div>
+                <div class="row">
+                    <div class="prompt row-prompt" @onclick="() => showDes(4)">
+                        <CategoryContainer CategoryTitle="@Categories[4].Name" />
                         </div>
+                    <div class="box" @onclick="() => setValue(3)"> <AnswerContainer stateParam="@answers[3]" rarity="@rarities[3]" /></div>
+                    <div class="box" @onclick="() => setValue(4)"> <AnswerContainer stateParam="@answers[4]" rarity="@rarities[4]" /></div>
+                    <div class="box" @onclick="() => setValue(5)"> <AnswerContainer stateParam="@answers[5]" rarity="@rarities[5]" /></div>
+                </div>
+                    <div class="row">
+                    <div class="prompt row-prompt" @onclick="() => showDes(5)">
+                        <CategoryContainer CategoryTitle="@Categories[5].Name" />
+                    </div>
+                    <div class="box" @onclick="() => setValue(6)"> <AnswerContainer stateParam="@answers[6]" rarity="@rarities[6]" /></div>
+                    <div class="box" @onclick="() => setValue(7)"> <AnswerContainer stateParam="@answers[7]" rarity="@rarities[7]" /></div>
+                    <div class="box" @onclick="() => setValue(8)"> <AnswerContainer stateParam="@answers[8]" rarity="@rarities[8]" /></div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="card column-item">
+                    Game Number: @gameNumber
+                </div>
+                <div class="card column-item">
+                    Score: @String.Format("{0:0.00}", score)
+                </div>
+                <div class="card column-item">
+                    Guesses Remaining: @if (infiniteGuesses){<i>&infin;</i>} else{ @guessesLeft }
+                </div>
+                <div class="howtoplay card column-item" @onclick="() => howToPlayRef.show()">
+                        How To Play
+                </div>
+                <!--
+                <div class="card column-item">
+                    <button >Give Up</button>
+                </div>
+                -->
+                <div class="card column-item"> <ClipboardButton Text="@forClipboard"></ClipboardButton> </div>
+                <div class="card column-item">
+                    Archive
+                    <button Color="ButtonColor.Primary" @onclick='() => Navigation.NavigateTo("/game/" + (gameNumber - 1))'>&lt;</button>
+                    <button Color="ButtonColor.Primary" disabled="@isDisabled" @onclick='() => Navigation.NavigateTo(" /game/" + (gameNumber + 1))'>&gt;</button>
+                </div>
+                <div class="card">
+                    <div class="form-check form-switch">
+                    <input class="form-check-input" disabled="@UsedInfinite" @onclick="() => data.infiniteGuesses = !infiniteGuesses" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked="@infiniteGuesses">
+                        <label class="form-check-label" for="flexSwitchCheckChecked">Infinite Guess Mode</label>
                     </div>
                 </div>
             </div>
-            <div class="sidebar"></div>
         </div>
+        <div class="sidebar"></div>
     </div>
+</div>
 }
 
 @code {
     private Popup popupRef;
     private Descriptions descRef;
+    private HowToPlayModal howToPlayRef;
     private Category[] Categories = new Category[6];
     private double[] rarities = new double[] { 100, 100 ,100,  100, 100, 100,  100, 100, 100};
     private List<List<string>> categoriesCorrectAnswers = new List<List<string>>();
