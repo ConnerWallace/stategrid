@@ -106,6 +106,8 @@ while True:
             rejectFromMods = True
 
     if(rejectFromMods):
+        print("rejected game from matching mods")
+        print(mods)
         continue;
 
     if CheckIfSolvable(allAnswers):
