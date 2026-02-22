@@ -51,13 +51,13 @@ connection = sqlite3.connect("stateinfo.db")
 cursor = connection.cursor()
 
 #this table needs to exist first 
-#possibleCategories = cursor.execute("SELECT id, name, clause, modifier FROM categories WHERE clause is not null and (modifier != 'x' or modifier is null)").fetchall()
-categories = cursor.execute("SELECT id, name, clause, modifier FROM categories WHERE ID in (250,174,193,248,175,92)").fetchall()
+possibleCategories = cursor.execute("SELECT id, name, clause, modifier FROM categories WHERE clause is not null and (modifier != 'x' or modifier is null)").fetchall()
+#categories = cursor.execute("SELECT id, name, clause, modifier FROM categories WHERE ID in (250,174,193,248,175,92)").fetchall()
 #possibleCategories.pop()
 
 #randomly select possibleCategories
 while True:
-    #categories = random.sample(possibleCategories, 6)
+    categories = random.sample(possibleCategories, 6)
     allAnswers = []
 
     mods = []
