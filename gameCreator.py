@@ -51,12 +51,13 @@ connection = sqlite3.connect("stateinfo.db")
 cursor = connection.cursor()
 
 #this table needs to exist first 
-possibleCategories = cursor.execute("SELECT id, name, clause, modifier FROM categories WHERE clause is not null and (modifier != 'x' or modifier is null)").fetchall()
+#possibleCategories = cursor.execute("SELECT id, name, clause, modifier FROM categories WHERE clause is not null and (modifier != 'x' or modifier is null)").fetchall()
+categories = cursor.execute("SELECT id, name, clause, modifier FROM categories WHERE ID in (250,174,193,248,175,92)").fetchall()
 #possibleCategories.pop()
 
 #randomly select possibleCategories
 while True:
-    categories = random.sample(possibleCategories, 6)
+    #categories = random.sample(possibleCategories, 6)
     allAnswers = []
 
     mods = []
@@ -98,9 +99,14 @@ while True:
         #rejects 75% of 3 flag grids
         continue
 
-    
-    if not (allUnique(mods1) and allUnique(mods2)) :
-        continue
+
+    rejectFromMods = False
+    for mod in mods1:
+        if (mod in mods2):
+            rejectFromMods = True
+
+    if(rejectFromMods):
+        continue;
 
     if CheckIfSolvable(allAnswers):
         print("foudn one")
