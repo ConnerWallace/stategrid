@@ -85,6 +85,10 @@ while True:
         #print("rejecting list cause it has Largest City ends")
         continue
 
+    if(any("timezone" in x for x in names) and random.randint(1,4) < 4):
+        #print("rejecting list cause it has Largest City starts with")
+        continue
+
     if(any("Capital e" in x for x in names) and random.randint(1,4) < 3):
         #print("rejecting list cause it has Capital starts with")
         continue
@@ -98,7 +102,6 @@ while True:
     if( len(list(filter(lambda y: "Flag" in y, names))) > 3 and (random.randint(1,4) < 4)):
         #rejects 75% of 3 flag grids
         continue
-
 
     rejectFromMods = False
     for mod in mods1:
