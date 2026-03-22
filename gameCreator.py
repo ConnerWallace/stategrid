@@ -89,6 +89,10 @@ while True:
         #print("rejecting list cause it has Largest City starts with")
         continue
 
+     if(any("Springfield" in x for x in names) and random.randint(1,4) < 4):
+        #print("rejecting list cause it has Largest City starts with")
+        continue
+
     if(any("Capital e" in x for x in names) and random.randint(1,4) < 3):
         #print("rejecting list cause it has Capital starts with")
         continue
