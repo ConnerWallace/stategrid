@@ -1,6 +1,6 @@
 ﻿
 @using BlazorApp1.Components.Pages
-<div class="modal modal-xl @ModalClass" tabindex="-1" role="dialog" style="display:@ModalDisplay">
+<div class="answerModal modal modal-xl @ModalClass" tabindex="-1" role="dialog" style="display:@ModalDisplay">
     <div class="modal-dialog" role="document" style="z-index:1055">
         <div class="answerInput modal-content">
             <div class="modal-header">
@@ -8,7 +8,7 @@
                 <strong class="me-auto">@cat2</strong>
                 <button type="button" class="btn-close" aria-label="Close" @onclick="Close"></button>
             </div>
-            <div class="modal-body2">
+            <div class="answerContent modal-body2">
                 <input autocomplete="off" @ref="submitBox" type="search" name="name" @bind="input" @oninput="@(a => { onInput((string)a.Value); })" />
                 <input type="submit" name="submit" onclick="@Submit" />
 

@@ -90,7 +90,7 @@ else
                 <div class="card column-item"> <ClipboardButton Text="@forClipboard"></ClipboardButton> </div>
                 <div class="card column-item">
                     Archive
-                    <button Color="ButtonColor.Primary" @onclick='() => Navigation.NavigateTo("/game/" + (gameNumber - 1))'>&lt;</button>
+                    <button Color="ButtonColor.Primary" disabled="@isDisabled2" @onclick='() => Navigation.NavigateTo("/game/" + (gameNumber - 1))'>&lt;</button>
                     <button Color="ButtonColor.Primary" disabled="@isDisabled" @onclick='() => Navigation.NavigateTo(" /game/" + (gameNumber + 1))'>&gt;</button>
                 </div>
                 <div class="card">
@@ -125,7 +125,7 @@ else
     private double score = 900;
     private string forClipboard = "";
     private bool isDisabled = false;
-
+    private bool isDisabled2 = false;
     private StoredData data = new StoredData();
 
     private string[] answers {
@@ -186,6 +186,10 @@ else
         if (gameNumber == todaysGameNumber)
         {
             isDisabled = true;
+        }
+        if (gameNumber == 1)
+        {
+            isDisabled2 = true;
         }
 
         var result = await storage.GetAsync<StoredData>("board" + gameNumber);

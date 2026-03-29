@@ -201,7 +201,7 @@ h1:focus {
         color: #ffc965
     }
 .modal-content {
-    height: 40vh;
+    height: fit-content;
     background-color: #1b1385;
 }
 
@@ -247,6 +247,13 @@ h1:focus {
 .answerInput{
     color: white;
     background-color:darkslategrey
+}
+
+.howtoplayModal{
+    color:black
+}
+.howtoplayContent {
+    background-color: greenyellow;
 }
 
 
@@ -299,4 +306,6 @@ h1:focus {
         margin-left:0px;
         margin-top:10px;
     }
+
+
 }
