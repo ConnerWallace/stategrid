@@ -239,7 +239,7 @@ else
             }
             rarities[i] = (currentAnswer?.NumberOfGuesses.GetValueOrDefault(0) ?? (double)sum) / (double)sum * 100.0;
         }
-
+        score = rarities.Sum();
         emojify();
     }
 
