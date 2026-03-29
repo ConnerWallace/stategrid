@@ -263,11 +263,30 @@ h1:focus {
 .howtoplayBody {
     padding-left: 10px;
     padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .howtoplayContent {
-    background-color: #3a31b1;
+    background-color: #2a21b1;
+}
 
+.tonycanollisBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #dfdfdf;
+    background-color: #3a31b1;
+    transition: background-color .25s;
+    border-radius: 12px;
+    overflow-y: auto;
+    padding-right: 5px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin: 1px;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 
