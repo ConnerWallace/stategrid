@@ -228,7 +228,7 @@ h1:focus {
     background-color: #8d4a4e;
 }
 .howtoplay:hover {
-    background-color: darkslategrey;
+    background-color: #c45b61;
     cursor: pointer;
 }
 .modal-bg{
@@ -244,16 +244,30 @@ h1:focus {
     z-index: 9999;
 }
 
-.answerInput{
+.answerInput {
     color: white;
-    background-color:darkslategrey
+    background-color: darkslategrey;
+    justify-items: center;
 }
 
 .howtoplayModal{
-    color:black
+    color:white;
+
 }
+
+.howtoplayHeader {
+    background-color: #1b1385;
+
+}
+
+.howtoplayBody {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 .howtoplayContent {
-    background-color: greenyellow;
+    background-color: #3a31b1;
+
 }
 
 
