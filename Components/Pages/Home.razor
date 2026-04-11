@@ -170,7 +170,7 @@ else
 
     private async Task loadGameState()
     {
-        var todaysGameNumber = (int)(DateTime.Now - DateTime.Parse("11/13/2025")).TotalDays;
+        var todaysGameNumber = (int)(DateTime.Now - DateTime.Parse("11/13/2025")).TotalDays; //Start Date is 11/13/2025
         if (gameNumber == null)
         {
             gameNumber = todaysGameNumber; //Loses a day for some reason

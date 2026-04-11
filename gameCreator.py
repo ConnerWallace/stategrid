@@ -85,15 +85,19 @@ while True:
         #print("rejecting list cause it has Largest City ends")
         continue
 
-    if(any("timezone" in x for x in names) and random.randint(1,4) < 4):
+##    if(any("time zone" in x for x in names) and random.randint(1,6) < 6):
+        #print("rejecting list cause it has Largest City starts with")
+##        continue
+
+    if(any("Time Zone" in x for x in names) and random.randint(1,10) < 10):
         #print("rejecting list cause it has Largest City starts with")
         continue
 
-     if(any("Springfield" in x for x in names) and random.randint(1,4) < 4):
+    if(any("Springfield" in x for x in names) and random.randint(1,4) < 4):
         #print("rejecting list cause it has Largest City starts with")
         continue
 
-    if(any("Capital e" in x for x in names) and random.randint(1,4) < 3):
+    if(any("Capital e" in x for x in names) and random.randint(1,8) < 8):
         #print("rejecting list cause it has Capital starts with")
         continue
     
