@@ -1,8 +1,10 @@
-html, body {
+html,
+body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-a, .btn-link {
+a,
+.btn-link {
     color: #006bb7;
 }
 
@@ -20,7 +22,11 @@ a, .btn-link {
     border-color: #1861ac;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
@@ -50,6 +56,7 @@ h1:focus {
 .validation-message {
     color: #e50000;
 }
+
 .table {
     display: table;
     width: 100%;
@@ -60,30 +67,71 @@ h1:focus {
     max-width: 0px;
     border: 1px solid gray;
 }
+
 .table-cell:hover {
     background-color: #f2f2f2;
 }
-.popupCell:hover {
-    padding: 0px;
-    background-color: #f20202;
-    cursor:pointer;
-    margin: 0px;
+
+.answerModal {
+    top: 150px;
 }
 
-    .blazor-error-boundary::after {
-        content: "An error has occurred."
-    }
+.answerContent {
+    padding: 10px 0;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.answerInput {
+    padding: 0 12px;
+    width: 100%;
+    height: 30px;
+    border-width: 0;
+    border-radius: 10px;
+}
+
+.answerInput:focus {
+    outline: none;
+}
+
+.guessOption {
+    display: grid;
+    grid-template-columns: auto 70px;
+    padding: 3px 12px;
+    margin: 0;
+    height: 40px;
+    line-height: 34px;
+    color: black;
+    background-color: white;
+}
+
+.guessOption:hover {
+    background-color: #F0F0F0;
+}
+
+.guessOptionButton {
+    padding: 0;
+    text-align: center;
+    max-height: 34px;
+    line-height: 34px;
+}
+
+.blazor-error-boundary::after {
+    content: "An error has occurred."
+}
 
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+.form-floating>.form-control-plaintext::placeholder,
+.form-floating>.form-control::placeholder {
     color: var(--bs-secondary-color);
     text-align: end;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+.form-floating>.form-control-plaintext:focus::placeholder,
+.form-floating>.form-control:focus::placeholder {
     text-align: start;
 }
 
@@ -103,30 +151,37 @@ h1:focus {
     justify-content: center;
     flex: 1;
 }
+
 .sidebar {
     width: 2vw;
     min-height: 500px;
     position: sticky;
     top: 0;
 }
+
 .panel {
     flex-direction: column;
 }
-.panel, .row {
+
+.panel,
+.row {
     display: flex;
     gap: 8px;
 }
+
 .row {
     align-items: stretch;
-    flex-direction:row;
+    flex-direction: row;
     min-height: var(--cell-width);
 }
+
 .row:first-child {
-	height: -moz-max-content;
-	height: max-content;
-	margin-bottom: 8px;
-	margin-right: 0;
+    height: -moz-max-content;
+    height: max-content;
+    margin-bottom: 8px;
+    margin-right: 0;
 }
+
 .prompt {
     display: flex;
     justify-content: center;
@@ -142,14 +197,14 @@ h1:focus {
     width: var(--cell-width);
 }
 
-    .prompt:hover {
-        background-color: #b1474c;
-    }
+.prompt:hover {
+    background-color: #b1474c;
+}
 
 .box {
     width: var(--cell-width);
     height: 100%;
-    background-color: rgba(0,0,0,.3);
+    background-color: rgba(0, 0, 0, .3);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -162,9 +217,9 @@ h1:focus {
     padding: 6px;
 }
 
-    .box:hover {
-        background-color: rgba(54, 54, 54, 0.3)
-    }
+.box:hover {
+    background-color: rgba(54, 54, 54, 0.3)
+}
 
 
 
@@ -179,13 +234,15 @@ h1:focus {
     border-radius: 12px;
     overflow-y: auto;
     padding-right: 5px;
-    flex-grow:0;
-    flex-shrink:0;
-    margin:1px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin: 1px;
 }
-    .modal-box ul {
-        cursor: pointer;
-    }
+
+.modal-box ul {
+    cursor: pointer;
+}
+
 .modal-box-right {
     height: 100%;
     padding: 6px;
@@ -194,12 +251,14 @@ h1:focus {
     transition: background-color .25s;
     border-radius: 12px;
     overflow-y: auto;
-    flex-grow:100;
-    margin-left:10px;
+    flex-grow: 100;
+    margin-left: 10px;
 }
-    .modal-box-right a {
-        color: #ffc965
-    }
+
+.modal-box-right a {
+    color: #ffc965
+}
+
 .modal-content {
     height: fit-content;
     background-color: #1b1385;
@@ -212,46 +271,44 @@ h1:focus {
     padding-top: 25px;
 }
 
-.modal-title{
-    color:white
+.modal-title {
+    color: white
 }
 
 .invisible {
     width: var(--cell-width);
 }
-.column-item{
+
+.column-item {
     padding: 8px;
 }
+
 .card {
     text-align: center;
     color: #fff;
     background-color: #8d4a4e;
 }
+
 .howtoplay:hover {
     background-color: #c45b61;
     cursor: pointer;
 }
-.modal-bg{
+
+.modal-bg {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,.5);
+    background-color: rgba(0, 0, 0, .5);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
 }
 
-.answerInput {
+.howtoplayModal {
     color: white;
-    background-color: darkslategrey;
-    justify-items: center;
-}
-
-.howtoplayModal{
-    color:white;
 
 }
 
@@ -336,8 +393,8 @@ h1:focus {
     }
 
     .modal-box-right {
-        margin-left:0px;
-        margin-top:10px;
+        margin-left: 0px;
+        margin-top: 10px;
     }
 
 
