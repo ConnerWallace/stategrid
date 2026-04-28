@@ -1,22 +1,17 @@
 ﻿
 @using BlazorApp1.Components.Pages
-<div class="answerModal modal modal-xl @ModalClass" tabindex="-1" role="dialog" style="display:@ModalDisplay">
+<div class="answerModal modal @ModalClass" tabindex="-1" role="dialog" style="display:@ModalDisplay">
     <div class="modal-dialog" role="document" style="z-index:1055">
-        <div class="answerInput modal-content">
-            <div class="modal-header">
-                <strong class="me-auto">@cat1</strong>
-                <strong class="me-auto">@cat2</strong>
-                <button type="button" class="btn-close" aria-label="Close" @onclick="Close"></button>
-            </div>
+        <div class="modal-content">
             <div class="answerContent modal-body2">
-                <input autocomplete="off" @ref="submitBox" type="search" name="name" @bind="input" @oninput="@(a => { onInput((string)a.Value); })" />
-                <input type="submit" name="submit" onclick="@Submit" />
+                <input class="answerInput" autocomplete="off" @ref="submitBox" type="search" name="name" @bind="input" placeholder="@RowCategory + @ColumnCategory" @oninput="@(a => { OnInput((string)a.Value); })" />
 
                 <div>
                     @foreach (var state in filteredStates)
                     {
-                        <div class="popupCell" @onclick="@(t => { @setInput(state); })">
+                        <div class="guessOption">
                             <p>@state</p>
+                            <button class="btn btn-info guessOptionButton" @onclick="@(t => { @SetInput(state); @Submit(); })">Guess</button>
                         </div>
                     }
                 </div>
@@ -40,8 +35,8 @@
     [Parameter]
     public EventCallback<(int, string)> IsVisibleChanged { get; set; }
 
-    public string? cat1 { get; set; }
-    public string? cat2 { get; set; }
+    public string? ColumnCategory { get; set; }
+    public string? RowCategory { get; set; }
 
     [Parameter]
     public List<string>? states { get; set; }
@@ -53,48 +48,58 @@
 
 
 
-    public void Show(int index, string cat1, string cat2)
+    public void Show(int index, string columnCategory, string rowCategory)
     {
         this.index = index;
-        this.cat1 = cat1;
-        this.cat2 = cat2;
+        ColumnCategory = columnCategory;
+        RowCategory = rowCategory;
         ModalDisplay = "block;";
         ModalClass = "Show";
         ShowBackdrop = true;
         input = "";
         StateHasChanged();
-        focusInput();
+        FocusInput();
     }
 
-    public async void focusInput()
+    public async void FocusInput()
     {
         await Task.Delay(30);
         await submitBox.FocusAsync();
     }
 
-    private bool setInput(string state)
+    private bool SetInput(string state)
     {
         input = state;
-        filteredStates = new List<string>();
+        filteredStates.Clear();
         return false;
     }
 
-    private void onInput(string newInput)
+    private void OnInput(string newInput)
     {
 
         if (states == null)
-            states = new List<string>();
+        {
+            states.Clear();
+        }
+
         input = newInput;
         //var modifiedInput = System.Text.RegularExpressions.Regex.Replace(newInput, "^A-Za-z", "");
         //TODO strip characters in list for searching?
         if (input.Length > 1)
-            filteredStates = states.FindAll(a => a.Contains(input, StringComparison.InvariantCultureIgnoreCase));
+        {
+            filteredStates = states.FindAll(a => a.Contains(input, StringComparison.InvariantCultureIgnoreCase)).OrderBy(state => state.StartsWith(input, StringComparison.InvariantCultureIgnoreCase)? 0 : 1).ToList();
+            if (filteredStates.Count > 4) {
+                filteredStates = filteredStates.GetRange(0, 4);
+            }
+        }
         else
-            filteredStates = new List<string>();
+            filteredStates.Clear();
     }
 
     public void Close()
     {
+        input = "";
+        filteredStates.Clear();
         ModalDisplay = "none";
         ModalClass = "";
         ShowBackdrop = false;
@@ -107,7 +112,7 @@
         ModalClass = "";
         ShowBackdrop = false;
         IsVisibleChanged.InvokeAsync((index, input));
-        filteredStates = new List<string>();
+        filteredStates.Clear();
         StateHasChanged();
     }
 }

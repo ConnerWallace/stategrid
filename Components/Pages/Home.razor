@@ -15,7 +15,7 @@
 else
 {
 <CascadingValue Value=@this IsFixed=true>
-    <Popup @ref="popupRef" states="allStates" IsVisibleChanged="@(args=> onSubmit(args))" />
+    <AnswerPopup @ref="popupRef" states="allStates" IsVisibleChanged="@(args=> onSubmit(args))" />
 </CascadingValue>
 <Descriptions @ref="descRef"> 
 </Descriptions>
@@ -107,7 +107,7 @@ else
 }
 
 @code {
-    private Popup popupRef;
+    private AnswerPopup popupRef;
     private Descriptions descRef;
     private HowToPlayModal howToPlayRef;
     private Category[] Categories = new Category[6];
