@@ -111,8 +111,8 @@ while True:
     if( len(list(filter(lambda y: "Flag" in y, names))) == 2 and (random.randint(1,3) < 3)):
         continue
 
-    if( len(list(filter(lambda y: "Flag" in y, names))) == 3 and (random.randint(1,6) < 6)):
-        #rejects ~84% of 3 flag grids
+    if( len(list(filter(lambda y: "Flag" in y, names))) == 3 and (random.randint(1,8) < 8)):
+        #rejects ~88% of 3 flag grids
         continue
 
     rejectFromMods = False
