@@ -109,6 +109,22 @@ h1:focus {
     background-color: #F0F0F0;
 }
 
+.wrong {
+    color: #dd0000;
+}
+
+.recentlyWrong {
+    animation-name: shake;
+    animation-duration: 0.25s;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0) }
+    35% { transform: translateX(-6px) }
+    85% { transform: translateX(3px) }
+    100% { transform: translateX(0) }
+}
+
 .guessOptionButton {
     padding: 0;
     text-align: center;

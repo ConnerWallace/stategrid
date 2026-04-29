@@ -15,7 +15,7 @@
 else
 {
 <CascadingValue Value=@this IsFixed=true>
-    <AnswerPopup @ref="popupRef" states="allStates" IsVisibleChanged="@(args=> onSubmit(args))" />
+    <AnswerPopup @ref="popupRef" states="allStates" Validate="@(args => ValidateAnswer(args))" PreviouslyWrong="@(args => PreviouslyWrong(args))" Submit="@(args => OnSubmit(args))" />
 </CascadingValue>
 <Descriptions @ref="descRef"> 
 </Descriptions>
@@ -31,41 +31,41 @@ else
             <div class="panel">
                 <div class="row">
                     <div class="invisible"></div>
-                    <div class="prompt column-prompt" @onclick="() => showDes(0)">
+                    <div class="prompt column-prompt" @onclick="() => ShowDes(0)">
                         <CategoryContainer CategoryTitle="@Categories[0].Name" />
                     </div>
-                    <div class="prompt column-prompt" @onclick="() => showDes(1)">
+                    <div class="prompt column-prompt" @onclick="() => ShowDes(1)">
                         <CategoryContainer CategoryTitle="@Categories[1].Name" />
                     </div>
-                    <div class="prompt column-prompt" @onclick="() => showDes(2)">
+                    <div class="prompt column-prompt" @onclick="() => ShowDes(2)">
                         <CategoryContainer CategoryTitle="@Categories[2].Name" />
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="prompt row-prompt" @onclick="() => showDes(3)">
+                    <div class="prompt row-prompt" @onclick="() => ShowDes(3)">
                         <CategoryContainer CategoryTitle="@Categories[3].Name" />
                     </div>
-                    <div class="box" @onclick="() => setValue(0)"> <AnswerContainer stateParam="@answers[0]" rarity="@rarities[0]" /></div>
-                    <div class="box" @onclick="() => setValue(1)"> <AnswerContainer stateParam="@answers[1]" rarity="@rarities[1]" /></div>
-                    <div class="box" @onclick="() => setValue(2)"> <AnswerContainer stateParam="@answers[2]" rarity="@rarities[2]" /></div>
+                    <div class="box" @onclick="() => SetValue(0)"> <AnswerContainer stateParam="@Answers[0]" rarity="@rarities[0]" /></div>
+                    <div class="box" @onclick="() => SetValue(1)"> <AnswerContainer stateParam="@Answers[1]" rarity="@rarities[1]" /></div>
+                    <div class="box" @onclick="() => SetValue(2)"> <AnswerContainer stateParam="@Answers[2]" rarity="@rarities[2]" /></div>
 
                 </div>
                 <div class="row">
-                    <div class="prompt row-prompt" @onclick="() => showDes(4)">
+                    <div class="prompt row-prompt" @onclick="() => ShowDes(4)">
                         <CategoryContainer CategoryTitle="@Categories[4].Name" />
                         </div>
-                    <div class="box" @onclick="() => setValue(3)"> <AnswerContainer stateParam="@answers[3]" rarity="@rarities[3]" /></div>
-                    <div class="box" @onclick="() => setValue(4)"> <AnswerContainer stateParam="@answers[4]" rarity="@rarities[4]" /></div>
-                    <div class="box" @onclick="() => setValue(5)"> <AnswerContainer stateParam="@answers[5]" rarity="@rarities[5]" /></div>
+                    <div class="box" @onclick="() => SetValue(3)"> <AnswerContainer stateParam="@Answers[3]" rarity="@rarities[3]" /></div>
+                    <div class="box" @onclick="() => SetValue(4)"> <AnswerContainer stateParam="@Answers[4]" rarity="@rarities[4]" /></div>
+                    <div class="box" @onclick="() => SetValue(5)"> <AnswerContainer stateParam="@Answers[5]" rarity="@rarities[5]" /></div>
                 </div>
                     <div class="row">
-                    <div class="prompt row-prompt" @onclick="() => showDes(5)">
+                    <div class="prompt row-prompt" @onclick="() => ShowDes(5)">
                         <CategoryContainer CategoryTitle="@Categories[5].Name" />
                     </div>
-                    <div class="box" @onclick="() => setValue(6)"> <AnswerContainer stateParam="@answers[6]" rarity="@rarities[6]" /></div>
-                    <div class="box" @onclick="() => setValue(7)"> <AnswerContainer stateParam="@answers[7]" rarity="@rarities[7]" /></div>
-                    <div class="box" @onclick="() => setValue(8)"> <AnswerContainer stateParam="@answers[8]" rarity="@rarities[8]" /></div>
+                    <div class="box" @onclick="() => SetValue(6)"> <AnswerContainer stateParam="@Answers[6]" rarity="@rarities[6]" /></div>
+                    <div class="box" @onclick="() => SetValue(7)"> <AnswerContainer stateParam="@Answers[7]" rarity="@rarities[7]" /></div>
+                    <div class="box" @onclick="() => SetValue(8)"> <AnswerContainer stateParam="@Answers[8]" rarity="@rarities[8]" /></div>
                 </div>
             </div>
 
@@ -77,7 +77,7 @@ else
                     Score: @String.Format("{0:0.00}", score)
                 </div>
                 <div class="card column-item">
-                    Guesses Remaining: @if (infiniteGuesses){<i>&infin;</i>} else{ @guessesLeft }
+                    Guesses Remaining: @if (InfiniteGuesses){<i>&infin;</i>} else{ @GuessesLeft }
                 </div>
                 <div class="howtoplay card column-item" @onclick="() => howToPlayRef.show()">
                         How to Play
@@ -95,7 +95,7 @@ else
                 </div>
                 <div class="card">
                     <div class="form-check form-switch">
-                    <input class="form-check-input" disabled="@UsedInfinite" @onclick="() => data.infiniteGuesses = !infiniteGuesses" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked="@infiniteGuesses">
+                    <input class="form-check-input" disabled="@UsedInfinite" @onclick="() => InfiniteGuesses = !InfiniteGuesses" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked="@InfiniteGuesses">
                         <label class="form-check-label" for="flexSwitchCheckChecked">Infinite Guess Mode</label>
                     </div>
                 </div>
@@ -111,8 +111,8 @@ else
     private Descriptions descRef;
     private HowToPlayModal howToPlayRef;
     private Category[] Categories = new Category[6];
-    private double[] rarities = new double[] { 100, 100 ,100,  100, 100, 100,  100, 100, 100};
-    private List<List<string>> categoriesCorrectAnswers = new List<List<string>>();
+    private double[] rarities = new double[] { 100, 100, 100, 100, 100, 100, 100, 100, 100};
+    private new List<List<string>> categoriesCorrectAnswers = new List<List<string>>();
 
     [Parameter]
     public int? gameNumber { get; set; } 
@@ -128,26 +128,30 @@ else
     private bool isDisabled2 = false;
     private StoredData data = new StoredData();
 
-    private string[] answers {
+    private string[] Answers {
         get
         {
-            return data.answers;
+            return data.Answers;
         }
     }
 
-    private bool infiniteGuesses
+    private bool InfiniteGuesses
     {
         get
         {
-            return data.infiniteGuesses;
+            return data.InfiniteGuesses;
+        }
+        set
+        {
+            data.InfiniteGuesses = value;
         }
     }
 
-    private int guessesLeft
+    private int GuessesLeft
     {
         get
         {
-            return data.guessesLeft;
+            return data.GuessesLeft;
         }
     }
 
@@ -163,12 +167,12 @@ else
     {
         if (firstRender)
         {
-            await loadGameState();
+            await LoadGameState();
             StateHasChanged();
         }
     }
 
-    private async Task loadGameState()
+    private async Task LoadGameState()
     {
         var todaysGameNumber = (int)(DateTime.Now - DateTime.Parse("11/13/2025")).TotalDays; //Start Date is 11/13/2025
         if (gameNumber == null)
@@ -226,12 +230,12 @@ else
 
         for(int i=0; i<9; i++)
         {
-            if (answers![i] == null || answers[i] == "")
+            if (Answers![i] == null || Answers[i] == "")
             {
                 continue;
             }
             var listOfSubmittedAnswers = userDataContext.Answers.Where(c => c.Game == gameNumber && c.AnswerSlot == i).ToList();
-            var currentAnswer = listOfSubmittedAnswers.Find(a => a.StateName.Equals(answers[i], StringComparison.InvariantCultureIgnoreCase));
+            var currentAnswer = listOfSubmittedAnswers.Find(a => a.StateName.Equals(Answers[i], StringComparison.InvariantCultureIgnoreCase));
             int sum = 0;
             foreach (Answer answer1 in listOfSubmittedAnswers)
             {
@@ -240,27 +244,40 @@ else
             rarities[i] = (currentAnswer?.NumberOfGuesses.GetValueOrDefault(0) ?? (double)sum) / (double)sum * 100.0;
         }
         score = rarities.Sum();
-        emojify();
+        Emojify();
     }
 
-    private async Task setValue(int index)
+    private async Task SetValue(int index)
     {
-        var (x, y) = xyFromIndex(index);
+        var (x, y) = XYFromIndex(index);
         popupRef.Show(index, Categories[x].Name, Categories[y].Name);
 
     }
 
-    private void onSubmit((int index, string input) a)
+    private bool PreviouslyWrong((int index, string input) a)
     {
-        if (infiniteGuesses)
+        return data.AllWrongGuesses[a.index].Find(t => string.Equals(a.input, t, StringComparison.InvariantCultureIgnoreCase)) != null;
+    }
+
+    private bool ValidateAnswer((int index, string input) a)
+    {
+        var (x, y) = XYFromIndex(a.index);
+        var answer = a.input;
+        return categoriesCorrectAnswers[x].Contains(answer, StringComparer.OrdinalIgnoreCase)
+        && categoriesCorrectAnswers[y].Contains(answer, StringComparer.OrdinalIgnoreCase);
+    }
+
+    private void OnSubmit((int index, string input) a)
+    {
+        if (InfiniteGuesses)
         {
-            data.guessesLeft = 999;
+            data.GuessesLeft = 999;
             data.UsedInfinite = true;
         }
 
-        if (guessesLeft == 0) return;
+        if (GuessesLeft == 0) return;
 
-        var (x, y) = xyFromIndex(a.index);
+        var (x, y) = XYFromIndex(a.index);
         var answer = a.input;
 
         if (!allStates.Contains(answer, StringComparer.OrdinalIgnoreCase))
@@ -269,7 +286,7 @@ else
             return;
         }
 
-        var OldAnswerLocation = Array.FindIndex<string>(answers, 0, 9, x => string.Equals(x, answer, StringComparison.OrdinalIgnoreCase));
+        var OldAnswerLocation = Array.FindIndex<string>(Answers, 0, 9, x => string.Equals(x, answer, StringComparison.OrdinalIgnoreCase));
 
         if (categoriesCorrectAnswers[x].Contains(answer, StringComparer.OrdinalIgnoreCase)
         && categoriesCorrectAnswers[y].Contains(answer, StringComparer.OrdinalIgnoreCase)     
@@ -277,12 +294,12 @@ else
         {
             if(OldAnswerLocation != -1)
             {
-                answers[OldAnswerLocation] = null;
+                Answers[OldAnswerLocation] = null;
                 rarities[OldAnswerLocation] = 100;
-                data.guessesLeft++;
+                data.GuessesLeft++;
             }
 
-            var hasBeenSubmitted = hadBeenSubmitted(a.index, answer);
+            var hasBeenSubmitted = HadBeenSubmitted(a.index, answer);
 
             var listOfSubmittedAnswers = userDataContext.Answers.Where(c => c.Game == gameNumber && c.AnswerSlot == a.index).ToList();
 
@@ -296,8 +313,6 @@ else
             {
                 rarities[a.index] = currentAnswer.NumberOfGuesses.GetValueOrDefault(0) / (double)sum * 100.0;
                 if(!hasBeenSubmitted) currentAnswer.NumberOfGuesses += 1;
-
-
             } else
             {
                 currentAnswer = new Answer
@@ -314,21 +329,29 @@ else
 
 
             score = rarities.Sum();
-            answers[a.index] = categoriesCorrectAnswers[x].FirstOrDefault(t => string.Equals(answer,t, StringComparison.InvariantCultureIgnoreCase))!;
+            Answers[a.index] = categoriesCorrectAnswers[x].FirstOrDefault(t => string.Equals(answer,t, StringComparison.InvariantCultureIgnoreCase))!;
+        }
+        else
+        {
+            var inList = data.AllWrongGuesses[a.index].Find(t => string.Equals(answer, t, StringComparison.InvariantCultureIgnoreCase)) != null;
+            if (!inList)
+            {
+                data.AllWrongGuesses[a.index].Add(answer);
+            }
         }
 
-        data.guessesLeft--;
-        storage.SetAsync("board"+gameNumber, data);
-        emojify();
+        data.GuessesLeft--;
+        storage.SetAsync("board" + gameNumber, data);
+        Emojify();
     }
 
-    public void showDes(int index)
+    public void ShowDes(int index)
     {
         descRef.show(Categories[index].Description ?? 0);
         popupRef.Close();
     }
 
-    public bool hadBeenSubmitted(int index, string answer)
+    private bool HadBeenSubmitted(int index, string answer)
     {
         var inList = data.AllGivenAnswers[index].Find(t => string.Equals(answer, t, StringComparison.InvariantCultureIgnoreCase)) != null;
         if (!inList)
@@ -338,13 +361,13 @@ else
         return inList;
     }
 
-    public void emojify()
+    public void Emojify()
     {
-        var text = scoreToEmoji(0) + scoreToEmoji(1) + scoreToEmoji(2) + "\\r\\n" +
-                scoreToEmoji(3) + scoreToEmoji(4) + scoreToEmoji(5) + "\\r\\n" +
-                scoreToEmoji(6) + scoreToEmoji(7) + scoreToEmoji(8) + "\\r\\n" +
+        var text = ScoreToEmoji(0) + ScoreToEmoji(1) + ScoreToEmoji(2) + "\\r\\n" +
+                ScoreToEmoji(3) + ScoreToEmoji(4) + ScoreToEmoji(5) + "\\r\\n" +
+                ScoreToEmoji(6) + ScoreToEmoji(7) + ScoreToEmoji(8) + "\\r\\n" +
                 "score: " + @String.Format("{0:0.00}", score) +" | game #" + gameNumber + " | "+ DateTime.Today.ToShortDateString();
-        if (infiniteGuesses)
+        if (InfiniteGuesses)
         {
             text += " | ♾️";
         }
@@ -352,9 +375,9 @@ else
 
         forClipboard = text;
     }
-    private string scoreToEmoji(int index)
+    private string ScoreToEmoji(int index)
     {
-        if (answers[index] == null)
+        if (Answers[index] == null)
             return "❌";
         var score = rarities[index];
 
@@ -375,7 +398,7 @@ else
         }
     }
 
-    private (int, int) xyFromIndex(int index)
+    private (int, int) XYFromIndex(int index)
     {
         switch (index)
         {

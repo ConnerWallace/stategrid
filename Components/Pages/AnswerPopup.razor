@@ -10,8 +10,15 @@
                     @foreach (var state in filteredStates)
                     {
                         <div class="guessOption">
-                            <p>@state</p>
-                            <button class="btn btn-info guessOptionButton" @onclick="@(t => { @SetInput(state); @Submit(); })">Guess</button>
+                            <p class="@GetGuessClasses(state)">@state</p>
+                            @if (!PreviouslyWrong((index, state)))
+                            {
+                                <button class="btn btn-info guessOptionButton" @onclick="@(t => { @SubmitGuess(state); })">Guess</button>
+                            }
+                            else
+                            {
+                                <div></div>
+                            }
                         </div>
                     }
                 </div>
@@ -25,15 +32,21 @@
 </div>
 
 @code {
-
     public Guid Guid = Guid.NewGuid();
     public string ModalDisplay = "none;";
     public string ModalClass = "";
     public bool ShowBackdrop = false;
-    private int categoryNumber;
+
+    private HashSet<string> recentlyWrong = new HashSet<string>();
 
     [Parameter]
-    public EventCallback<(int, string)> IsVisibleChanged { get; set; }
+    public Func<(int, string), bool> PreviouslyWrong { get; set; }
+
+    [Parameter]
+    public Func<(int, string), bool> Validate { get; set; }
+
+    [Parameter]
+    public EventCallback<(int, string)> Submit { get; set; }
 
     public string? ColumnCategory { get; set; }
     public string? RowCategory { get; set; }
@@ -45,8 +58,6 @@
     public int index { get; set; } = 0;
     private List<string> filteredStates = new List<string>();
     private ElementReference submitBox;
-
-
 
     public void Show(int index, string columnCategory, string rowCategory)
     {
@@ -67,16 +78,9 @@
         await submitBox.FocusAsync();
     }
 
-    private bool SetInput(string state)
-    {
-        input = state;
-        filteredStates.Clear();
-        return false;
-    }
-
     private void OnInput(string newInput)
     {
-
+        recentlyWrong.Clear();
         if (states == null)
         {
             states.Clear();
@@ -93,26 +97,43 @@
             }
         }
         else
+        {
             filteredStates.Clear();
+        }
     }
 
     public void Close()
     {
         input = "";
         filteredStates.Clear();
+        recentlyWrong.Clear();
         ModalDisplay = "none";
         ModalClass = "";
         ShowBackdrop = false;
         StateHasChanged();
     }
 
-    private void Submit()
+    private async void SubmitGuess(string state)
     {
-        ModalDisplay = "none";
-        ModalClass = "";
-        ShowBackdrop = false;
-        IsVisibleChanged.InvokeAsync((index, input));
-        filteredStates.Clear();
+        if (Validate((index, state))) {
+            ModalDisplay = "none";
+            ModalClass = "";
+            ShowBackdrop = false;
+            filteredStates.Clear();
+        }
+        else
+        {
+            recentlyWrong.Add(state);
+        }
+        Submit.InvokeAsync((index, state));
         StateHasChanged();
+    }
+
+    private string GetGuessClasses(string state)
+    {
+        string classes = "";
+        classes += PreviouslyWrong((index, state)) ? "wrong " : "";
+        classes += recentlyWrong.Contains(state) ? "recentlyWrong " : "";
+        return classes;
     }
 }
