@@ -10,12 +10,12 @@
 
 @if (Categories[0] == null)
 {
-    <p style="color: white; font-style: italic;">Loading...</p>
+    <p class="load-in-message">Loading...</p>
 }
 else
 {
 <CascadingValue Value=@this IsFixed=true>
-    <AnswerPopup @ref="popupRef" states="allStates" Validate="@(args => ValidateAnswer(args))" PreviouslyWrong="@(args => PreviouslyWrong(args))" Submit="@(args => OnSubmit(args))" />
+    <AnswerPopup @ref="popupRef" states="allStates" Validate="@(args => ValidateAnswer(args))" PreviouslyWrong="@(args => PreviouslyWrong(args))" Submit="@(args => OnSubmit(args))" RerenderParent="@Rerender" />
 </CascadingValue>
 <Descriptions @ref="descRef"> 
 </Descriptions>
@@ -46,26 +46,25 @@ else
                     <div class="prompt row-prompt" @onclick="() => ShowDes(3)">
                         <CategoryContainer CategoryTitle="@Categories[3].Name" />
                     </div>
-                    <div class="box" @onclick="() => SetValue(0)"> <AnswerContainer stateParam="@Answers[0]" rarity="@rarities[0]" /></div>
-                    <div class="box" @onclick="() => SetValue(1)"> <AnswerContainer stateParam="@Answers[1]" rarity="@rarities[1]" /></div>
-                    <div class="box" @onclick="() => SetValue(2)"> <AnswerContainer stateParam="@Answers[2]" rarity="@rarities[2]" /></div>
-
+                    <div class="@GetClassesForBox(0)" @onclick="() => SetValue(0)"> <AnswerContainer stateParam="@Answers[0]" rarity="@rarities[0]" /></div>
+                    <div class="@GetClassesForBox(1)" @onclick="() => SetValue(1)"> <AnswerContainer stateParam="@Answers[1]" rarity="@rarities[1]" /></div>
+                    <div class="@GetClassesForBox(2)" @onclick="() => SetValue(2)"> <AnswerContainer stateParam="@Answers[2]" rarity="@rarities[2]" /></div>
                 </div>
                 <div class="row">
                     <div class="prompt row-prompt" @onclick="() => ShowDes(4)">
                         <CategoryContainer CategoryTitle="@Categories[4].Name" />
                         </div>
-                    <div class="box" @onclick="() => SetValue(3)"> <AnswerContainer stateParam="@Answers[3]" rarity="@rarities[3]" /></div>
-                    <div class="box" @onclick="() => SetValue(4)"> <AnswerContainer stateParam="@Answers[4]" rarity="@rarities[4]" /></div>
-                    <div class="box" @onclick="() => SetValue(5)"> <AnswerContainer stateParam="@Answers[5]" rarity="@rarities[5]" /></div>
+                    <div class="@GetClassesForBox(3)" @onclick="() => SetValue(3)"> <AnswerContainer stateParam="@Answers[3]" rarity="@rarities[3]" /></div>
+                    <div class="@GetClassesForBox(4)" @onclick="() => SetValue(4)"> <AnswerContainer stateParam="@Answers[4]" rarity="@rarities[4]" /></div>
+                    <div class="@GetClassesForBox(5)" @onclick="() => SetValue(5)"> <AnswerContainer stateParam="@Answers[5]" rarity="@rarities[5]" /></div>
                 </div>
                     <div class="row">
                     <div class="prompt row-prompt" @onclick="() => ShowDes(5)">
                         <CategoryContainer CategoryTitle="@Categories[5].Name" />
                     </div>
-                    <div class="box" @onclick="() => SetValue(6)"> <AnswerContainer stateParam="@Answers[6]" rarity="@rarities[6]" /></div>
-                    <div class="box" @onclick="() => SetValue(7)"> <AnswerContainer stateParam="@Answers[7]" rarity="@rarities[7]" /></div>
-                    <div class="box" @onclick="() => SetValue(8)"> <AnswerContainer stateParam="@Answers[8]" rarity="@rarities[8]" /></div>
+                    <div class="@GetClassesForBox(6)" @onclick="() => SetValue(6)"> <AnswerContainer stateParam="@Answers[6]" rarity="@rarities[6]" /></div>
+                    <div class="@GetClassesForBox(7)" @onclick="() => SetValue(7)"> <AnswerContainer stateParam="@Answers[7]" rarity="@rarities[7]" /></div>
+                    <div class="@GetClassesForBox(8)" @onclick="() => SetValue(8)"> <AnswerContainer stateParam="@Answers[8]" rarity="@rarities[8]" /></div>
                 </div>
             </div>
 
@@ -251,7 +250,14 @@ else
     {
         var (x, y) = XYFromIndex(index);
         popupRef.Show(index, Categories[x].Name, Categories[y].Name);
+    }
 
+    private string GetClassesForBox(int index) {
+        if (popupRef != null && !popupRef.ModalDisplay.Contains("none") && popupRef.index == index) {
+            return "box-selected";
+        } else {
+            return "box";
+        }
     }
 
     private bool PreviouslyWrong((int index, string input) a)
@@ -349,6 +355,10 @@ else
     {
         descRef.show(Categories[index].Description ?? 0);
         popupRef.Close();
+    }
+
+    public void Rerender() {
+        StateHasChanged();
     }
 
     private bool HadBeenSubmitted(int index, string answer)
