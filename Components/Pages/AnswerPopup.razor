@@ -48,6 +48,9 @@
     [Parameter]
     public EventCallback<(int, string)> Submit { get; set; }
 
+    [Parameter]
+    public Action RerenderParent { get; set; }
+
     public string? ColumnCategory { get; set; }
     public string? RowCategory { get; set; }
 
@@ -55,7 +58,7 @@
     public List<string>? states { get; set; }
 
     public string input { get; set; } = "";
-    public int index { get; set; } = 0;
+    public int index { get; set; } = -1;
     private List<string> filteredStates = new List<string>();
     private ElementReference submitBox;
 
@@ -111,6 +114,7 @@
         ModalClass = "";
         ShowBackdrop = false;
         StateHasChanged();
+        RerenderParent();
     }
 
     private async void SubmitGuess(string state)
@@ -120,13 +124,14 @@
             ModalClass = "";
             ShowBackdrop = false;
             filteredStates.Clear();
+            RerenderParent();
         }
         else
         {
             recentlyWrong.Add(state);
         }
         Submit.InvokeAsync((index, state));
-        StateHasChanged();
+        await InvokeAsync(StateHasChanged);
     }
 
     private string GetGuessClasses(string state)
