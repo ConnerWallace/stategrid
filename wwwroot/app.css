@@ -226,7 +226,6 @@ h1:focus {
     justify-content: center;
     align-items: center;
     color: #dfdfdf;
-    font-size: 14px;
     background-color: #723034;
     min-height: 60px;
     padding: 10px;
@@ -425,6 +424,18 @@ h1:focus {
         flex-direction: row;
         background-color: #2a21b1;
     }
+
+    .large-prompt-text {
+        font-size: calc(var(--cell-width) / 7.7);
+    }
+
+    .medium-prompt-text {
+        font-size: calc(var(--cell-width) / 8.6);
+    }
+
+    .small-prompt-text {
+        font-size: calc(var(--cell-width) / 9.5);
+    }
 }
 
 @media screen and (max-width: 1200px) {
@@ -455,5 +466,15 @@ h1:focus {
         margin-top: 10px;
     }
 
+    .large-prompt-text {
+        font-size: calc(var(--cell-width) / 5.8);
+    }
 
+    .medium-prompt-text {
+        font-size: calc(var(--cell-width) / 6.5);
+    }
+
+    .small-prompt-text {
+        font-size: calc(var(--cell-width) / 7.5);
+    }
 }

@@ -31,19 +31,19 @@ else
             <div class="panel">
                 <div class="row">
                     <div class="invisible"></div>
-                    <div class="prompt column-prompt" @onclick="() => ShowDes(0)">
+                    <div class="@GetCategoryBoxClasses(0)" @onclick="() => ShowDes(0)">
                         <CategoryContainer CategoryTitle="@Categories[0].Name" />
                     </div>
-                    <div class="prompt column-prompt" @onclick="() => ShowDes(1)">
+                    <div class="@GetCategoryBoxClasses(1)" @onclick="() => ShowDes(1)">
                         <CategoryContainer CategoryTitle="@Categories[1].Name" />
                     </div>
-                    <div class="prompt column-prompt" @onclick="() => ShowDes(2)">
+                    <div class="@GetCategoryBoxClasses(2)" @onclick="() => ShowDes(2)">
                         <CategoryContainer CategoryTitle="@Categories[2].Name" />
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="prompt row-prompt" @onclick="() => ShowDes(3)">
+                    <div class="@GetCategoryBoxClasses(3)" @onclick="() => ShowDes(3)">
                         <CategoryContainer CategoryTitle="@Categories[3].Name" />
                     </div>
                     <div class="@GetClassesForBox(0)" @onclick="() => SetValue(0)"> <AnswerContainer stateParam="@Answers[0]" rarity="@rarities[0]" /></div>
@@ -51,7 +51,7 @@ else
                     <div class="@GetClassesForBox(2)" @onclick="() => SetValue(2)"> <AnswerContainer stateParam="@Answers[2]" rarity="@rarities[2]" /></div>
                 </div>
                 <div class="row">
-                    <div class="prompt row-prompt" @onclick="() => ShowDes(4)">
+                    <div class="@GetCategoryBoxClasses(4)" @onclick="() => ShowDes(4)">
                         <CategoryContainer CategoryTitle="@Categories[4].Name" />
                         </div>
                     <div class="@GetClassesForBox(3)" @onclick="() => SetValue(3)"> <AnswerContainer stateParam="@Answers[3]" rarity="@rarities[3]" /></div>
@@ -59,7 +59,7 @@ else
                     <div class="@GetClassesForBox(5)" @onclick="() => SetValue(5)"> <AnswerContainer stateParam="@Answers[5]" rarity="@rarities[5]" /></div>
                 </div>
                     <div class="row">
-                    <div class="prompt row-prompt" @onclick="() => ShowDes(5)">
+                    <div class="@GetCategoryBoxClasses(5)" @onclick="() => ShowDes(5)">
                         <CategoryContainer CategoryTitle="@Categories[5].Name" />
                     </div>
                     <div class="@GetClassesForBox(6)" @onclick="() => SetValue(6)"> <AnswerContainer stateParam="@Answers[6]" rarity="@rarities[6]" /></div>
@@ -257,6 +257,17 @@ else
             return "box-selected";
         } else {
             return "box";
+        }
+    }
+
+    private string GetCategoryBoxClasses(int index) {
+        int length = Categories[index].Name.Length;
+        if (length <= 30) {
+            return "prompt large-prompt-text";
+        } else if (length <= 50) {
+            return "prompt medium-prompt-text";
+        } else {
+            return "prompt small-prompt-text";
         }
     }
 
